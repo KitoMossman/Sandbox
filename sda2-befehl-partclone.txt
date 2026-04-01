@@ -1,2 +1,7 @@
+sudo apt install partclone gzip pv nano
+
 Factory-Image anlegen (als root):
 partclone.ext4 -c -s /dev/sda3 | gzip -c > /root/clean-state.img.gz
+
+Factory-Image zurückspielen (als root):
+zcat /root/clean-state.img.gz | pv -pbt | partclone.ext4 -r -o /dev/sda3
