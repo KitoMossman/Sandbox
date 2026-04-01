@@ -1,0 +1,2 @@
+Factory-Image anlegen (als root):
+partclone.ext4 -c -s /dev/sda3 | gzip -c > /root/clean-state.img.gz

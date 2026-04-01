@@ -1,0 +1,63 @@
+access_entitlements:
+  - can_access_console
+  - can_delete
+  - can_edit
+  - can_exec
+  - can_manage_backups
+  - can_manage_snapshots
+  - can_update_state
+name: docker-sandbox
+description: ''
+status: Running
+status_code: 103
+created_at: '2026-03-03T12:24:54.755796335Z'
+last_used_at: '2026-03-04T08:41:54.290170021Z'
+location: none
+type: container
+project: default
+architecture: x86_64
+ephemeral: false
+stateful: false
+profiles:
+  - default
+config:
+  cloud-init.network-config: |+
+    version: 2
+    ethernets:
+      eth0:
+        dhcp4: true
+      eth1:
+        dhcp4: false
+        addresses:
+          - 192.168.212.2/24
+
+  image.architecture: amd64
+  image.description: ubuntu 24.04 LTS amd64 (release) (20260225)
+  image.label: release
+  image.os: ubuntu
+  image.release: noble
+  image.serial: '20260225'
+  image.type: squashfs
+  image.version: '24.04'
+  volatile.base_image: 48da73f5dbaa33d365862df5c0798626cea4653a3a3cf41f557e32a8d878ef5e
+  volatile.cloud-init.instance-id: 8d6781ac-e88f-41af-923c-f248aa1c75c7
+  volatile.eth0.host_name: mace3a5c590
+  volatile.eth0.hwaddr: 00:16:3e:1b:80:fd
+  volatile.eth0.last_state.created: 'false'
+  volatile.eth0.name: eth0
+  volatile.eth1.host_name: vethc2d0f9ea
+  volatile.eth1.hwaddr: 00:16:3e:be:42:30
+  volatile.eth1.name: eth1
+  volatile.idmap.base: '0'
+  volatile.idmap.current: '[{"Isuid":true,"Isgid":false,"Hostid":1000000,"Nsid":0,"Maprange":1000000000},{"Isuid":false,"Isgid":true,"Hostid":1000000,"Nsid":0,"Maprange":1000000000}]'
+  volatile.idmap.next: '[{"Isuid":true,"Isgid":false,"Hostid":1000000,"Nsid":0,"Maprange":1000000000},{"Isuid":false,"Isgid":true,"Hostid":1000000,"Nsid":0,"Maprange":1000000000}]'
+  volatile.last_state.idmap: '[]'
+  volatile.last_state.power: RUNNING
+  volatile.uuid: cd421383-0d9d-4b44-8109-02bef7421d62
+  volatile.uuid.generation: da136ab8-9917-4462-95af-4b9cd36705f9
+devices:
+  root:
+    path: /
+    pool: root
+    type: disk
+

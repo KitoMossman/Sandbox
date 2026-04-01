@@ -1,0 +1,24 @@
+name: default
+description: Default LXD profile
+devices:
+  eth0:
+    network: macvlan0
+    type: nic
+  eth1:
+    network: lxdbr0
+    type: nic
+  gpu-1:
+    gputype: physical
+    pci: '0000:00:02.0'
+    type: gpu
+config:
+  limits.cpu: '4'
+  limits.memory: 6GiB
+  security.nesting: 'true'
+  boot.autostart: 'true'
+  boot.autostart.delay: '10'
+  boot.host_shutdown_timeout: '10'
+access_entitlements:
+  - can_delete
+  - can_edit
+project: default
