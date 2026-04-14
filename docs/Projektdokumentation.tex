@@ -1,0 +1,412 @@
+\documentclass[11pt,
+a4paper,
+numbers=nonperiod,
+footsepline,
+oneside,
+numbers=noenddot,
+bibliography=totoc
+]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage{caption}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{pgfgantt}
+\usepackage[left=2cm, right=2cm, top=1.50cm, bottom=2.60cm]{geometry}
+\addtokomafont{sectioning}{\sffamily}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@maybeautodot}{.}{}{}{}
+\makeatother
+\usepackage[ngerman]{varioref} % Muss vor hyperref/cleveref geladen werden
+\usepackage[ngerman]{cleveref}
+
+% Literaturverzeichnis-Paket laden
+\usepackage[
+backend=biber,      % Empfohlener Prozessor
+style=numeric,      % Nummerierung [1], [2]
+sorting=none,       % Erscheinen in der Reihenfolge der Nennung im Text
+autocite=plain
+]{biblatex}
+
+% Die Datenbank-Datei einbinden
+\addbibresource{include/quellen.bib}
+
+% Verhindert, dass URLs über den Rand ragen
+\usepackage{xurl} 
+\hypersetup{breaklinks=true}
+
+%Fusszeilen Einstellungen
+\newcommand{\fusszeilentitel}{Ingo Weber} % Hier kommt Ihr Name rein
+\clearpairofpagestyles
+\refoot{\raisebox{-1mm}{Seite \pagemark}}
+\lefoot{\raisebox{-1mm}{\fusszeilentitel}}
+
+\rofoot{\raisebox{-1mm}{Seite \pagemark}}
+\lofoot{\raisebox{-1mm}{\fusszeilentitel}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Globaler Stil für alle Listings
+\lstset{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 % Zeilenumbruch bei zu langen Zeilen
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    % Zeilennummern links
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	literate=
+	{ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}	%begint das Dokument
+	\setlength{\parindent}{0px}
+	\pagestyle{empty}
+	
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm} % Abstand zum oberen Rand
+		
+		% Das Logo direkt einbinden (ohne figure-Umgebung!)
+		
+\begin{flushleft}
+			\large{BFW-Dresden gGmbH
+		\hfill \today\\
+		Hellerhofstraße 35\\
+		01129 Dresden}
+\end{flushleft}
+		
+		\includegraphics[width=0.8\textwidth]{include/logo.png} 
+		
+		\vspace{1.5cm}
+		
+		{\huge\bfseries Projekt - Dokumentation}\\[0.5cm]
+		{\huge Sandbox für Docker- und Web-Anwendungen}\\[2cm]
+		{\large Projektzeitraum: 13.04.2026 - 17.04.2026}
+		
+		\vfill % Schiebt den Rest nach unten
+		
+		{\large \textbf{Ingo Weber}\\
+		Aubildungsberuf: IT-Systemelektroniker}\\[0.5cm]
+	\end{titlepage}
+	
+% C. HAUPTTEIL
+% *********************************
+	
+\newpage				%mit diesen Befehl wird auf einer neuen Seite weiter geschrieben
+\tableofcontents		%erstellt das Inhaltsverzeichnis
+\newpage				%mit diesen Befehl wird auf einer neuen Seite weiter geschrieben
+\pagestyle{scrheadings}
+\setcounter{page}{1}	%mit diesem Befehl wird gesagt das ab hier erst mit der Seitenzahl angefangen wird
+
+\newpage
+\section{Einleitung / Informationen}	%\section{title} sind immer Überschriften
+\bigskip													%macht einen größeren Absatz
+Das vorliegende Projekt widmet sich der Konzeption, Implementierung und systemseitigen Härtung einer hochresilienten Server-Infrastruktur. Primäres Ziel war die Schaffung eines praxisnahen Lernortes (Sandbox), der speziell für den Einsatz im schulischen Kontext optimiert ist. Die Herausforderung bestand darin, eine Umgebung zu entwickeln, die einerseits technologische Tiefe bietet und andererseits immun gegen Fehlkonfigurationen oder destruktive administrative Eingriffe bleibt.
+
+\subsection{Die pädagogische und technische Problemstellung}
+In der modernen IT-Ausbildung ist der Übergang von der Theorie zur Praxis oft durch Sicherheitsbedenken gehemmt. Für einen nachhaltigen Lernerfolg ist es jedoch unerlässlich, dass Lernende administrative Tätigkeiten – wie die Konfiguration komplexer Webserver-Stacks oder die Orchestrierung von Container-Technologien – unter Realbedingungen erproben können.\\
+
+Dies führt zu einem inhärenten Konflikt:
+\begin{itemize}
+	\item \textbf{Anforderung:} Vergabe weitreichender Root-Rechte an „administrative Laien“ zur Förderung der Explorationsfreiheit.
+    \item \textbf{Risiko:} Systeminstabilität, Datenverlust oder die Kompromittierung des Host-Systems durch unsachgemäße Bedienung.
+\end{itemize}
+
+\subsection{Architektur und Sicherheitskonzept}
+Um diesen Widerspruch aufzulösen, demonstriert das Projekt einen Lösungsansatz, der auf drei zentralen Säulen basiert:
+\begin{itemize}
+\item \textbf{Asymmetrische Systemarchitektur:} Eine strikte Trennung zwischen der Verwaltungsebene (Host) und der Nutzer-Ebene (Gäste). Dies stellt sicher, dass kritische Systemressourcen für die Lernenden zu keinem Zeitpunkt direkt erreichbar sind.
+
+\item \textbf{Strikte Isolationsschichten:} Durch den Einsatz moderner Virtualisierungs- oder Containerisierungsverfahren werden die Experimentier-Umgebungen so voneinander und vom Kernsystem gekapselt, dass „Break-outs“ effektiv verhindert werden.
+
+\item \textbf{Autonomes Auto-Healing:} Ein wesentliches Merkmal der Infrastruktur ist die Fähigkeit zur Selbstheilung. Durch automatisierte Rollback-Mechanismen oder die Instanziierung von „Wegwerf-Umgebungen“ kann das System nach einer Fehlkonfiguration autonom und ohne manuellen Eingriff eines Administrators in einen definierten Ausgangszustand zurückkehren.
+\end{itemize}
+
+\subsection{Ressourceneffizienz unter Legacy-Bedingungen}
+Ein besonderer Fokus lag auf der extremen Optimierung der Systemressourcen. Das Projekt beweist, dass hochmoderne Infrastruktur-Konzepte nicht zwingend High-End-Hardware erfordern. Als physisches Fundament diente ein betagter Intel Core i5-3450 mit lediglich 8 GB RAM.\\
+
+Durch eine rigorose Auswahl schlanker Software-Stacks und eine effiziente Speicherverwaltung wurde sichergestellt, dass trotz der Hardware-Limitierungen eine flüssige, mehrbenutzerfähige Umgebung bereitgestellt werden kann, die den Anforderungen eines modernen IT-Unterrichts vollumfänglich entspricht.
+
+\section{Ist - Zustand}
+In klassischen schulischen IT-Umgebungen besteht ein inhärenter Zielkonflikt: Werden den Schülern weitreichende Rechte, wie Shell-Zugriff oder Berechtigungen zur Modifikation von Webserverkonfigurationen, eingeräumt, kommt es durch Fehlbedienungen ("Copy-Paste-Fehler", versehentliches Löschen von Systempfaden) unweigerlich zu kritischen Systemausfällen.
+Ein einziger fehlerhafter Syntax-Eintrag in einer Webserver-Konfiguration durch einen Nutzer führt nach einem Neustart des Daemons zum Ausfall aller anderen auf dem Server gehosteten Schüler-Projekte.
+Bisherige Lösungsansätze basierten entweder auf starker Restriktion (was den Lerneffekt minimiert) oder auf hohem administrativen Overhead für die Lehrkräfte, die das System nach Fehlern manuell debuggen oder aus Backups wiederherstellen mussten. Zudem erforderte eine vollständige Virtualisierung jedes Schüler-Arbeitsplatzes Hardware-Ressourcen, die in dem vorliegenden Szenario (8 GB RAM) physisch nicht abgebildet werden können.	
+		
+\section{Soll - Zustand}
+Ziel des Projekts ist die Implementierung eines fehlertoleranten, sich selbst korrigierenden Systems (Trampolin-Prinzip). Der Soll-Zustand definiert sich durch folgende Kernanforderungen:
+
+\begin{itemize}
+
+\item{Hardware-Effizienz:} Das primäre Web-Hosting-Stack (CloudPanel, Nginx, PHP, MariaDB) muss nativ auf dem Bare-Metal-Host (Ubuntu 24.04 LTS) betrieben werden, um Virtualisierungs-Overhead zu vermeiden und die Leistung auf der limitierten Hardware zu maximieren.
+
+\item{Gezielte Isolation:} Experimentelle oder potenziell ressourcenfressende Applikationen (z.B. Docker-Engines) dürfen nicht auf dem Host laufen, sondern müssen in leichtgewichtige Systemcontainer (LXC via LXD) ausgelagert werden.
+
+\item{Autonomes Auto-Healing:} Das System muss in der Lage sein, fatale Konfigurationsfehler oder destruktive Dateioperationen der Nutzer autonom zu erkennen. Ein Watchdog-Skript soll defekte Konfigurationen isolieren und fehlende Verzeichnisstrukturen (Superset) selbstständig regenerieren, um Host-Crashes präventiv abzuwenden.
+
+\item{Zentrale Telemetrie und Recovery:} Es muss ein zentrales Web-Dashboard (Infrastructure Hub) geschaffen werden, das Administratoren (und Lehrkräften) in Echtzeit die Systemlast anzeigt, Fehlerzustände visualisiert und eine One-Click-Wiederherstellung von Containern (Soft Reset) oder der gesamten Host-Partition (Hard Reset via partclone) ermöglicht.
+
+\end{itemize}
+
+\newpage
+\section{Projektplanung}
+\bigskip
+\subsection{Projektstrukturplan}
+
+Der Projektstrukturplan unterteilt die Realisierung des Infrastructure Hubs in fünf aufeinanderfolgende Kernphasen, welche die asymmetrische Systemarchitektur von der ersten Hardware-Analyse bis zur finalen System-Sterilisierung abbilden.
+\bigskip
+Die erste Phase, \textbf{Analyse und Konzeption}, befasste sich primär mit der Evaluation der physischen Hardware-Limits des Intel Core i5-3450 und der daraus resultierenden Entscheidung für einen hybriden Architekturansatz. Hierbei wurden das Partitionsschema für den Host und das Recovery-System (sda3/sda2) definiert sowie die Netzwerkplanung vorgenommen, um mittels eines MACVLAN-Bypasses die Erreichbarkeit der isolierten Dienste für das Monitoring sicherzustellen.
+\bigskip
+In der zweiten Phase, dem \textbf{Infrastruktur-Setup}, erfolgte die Grundinstallation von Ubuntu 24.04 LTS auf der Hauptpartition. Um die I/O-Performance und den RAM-Verbrauch zu optimieren, wurde der primäre Service-Stack bestehend aus CloudPanel, Nginx und MariaDB nativ auf dem Host-System implementiert. Parallel dazu wurde der Virtualisierungslayer via LXD konfiguriert und die isolierte \texttt{docker-sandbox} zur Kapselung potenziell instabiler Drittanwendungen eingerichtet. Den Abschluss dieser Phase bildete die Installation des minimalen Zweit-OS auf der Recovery-Partition sda2.
+\bigskip
+Die dritte Phase, die \textbf{Entwicklung des Immunsystems}, stellt den technologischen Kern des Projekts dar. Hierbei wurde das autonome Bash-Skript \texttt{nginx-healer.sh} programmiert, welches über eine Closed-Loop-Logik verfügt, um syntaktische Fehler in vHost-Konfigurationen zu isolieren und gelöschte Systempfade durch eine Superset-Regeneration wiederherzustellen. Die Integration in das Sicherheitskonzept erfolgte durch präzise definierte Ausnahmen in der \texttt{/etc/sudoers} sowie die Automatisierung über Systemd-Overrides und Cronjobs.
+\bigskip
+In der vierten Phase wurde das \textbf{Dashboard und die Telemetrie-Einheit} realisiert. Das Frontend wurde mittels PHP und TailwindCSS entwickelt, während das Backend über eine asynchrone AJAX-Schnittstelle Echtzeit-Metriken zu CPU-Last, RAM-Belegung und Prozessortemperaturen bereitstellt. Zudem wurde die grafische Benutzeroberfläche für die Recovery-Trigger implementiert, welche die Durchführung von Soft- und Hard-Resets direkt über das Web-UI ermöglicht.
+\bigskip
+Die finale fünfte Phase umfasste die \textbf{Validierung und den Projektabschluss}. Mittels Greybox-Testing (Chaos-Monkey-Prinzip) wurden kritische Ausfallszenarien simuliert, um die Resilienz des Auto-Healers und der Recovery-Pfade unter Beweis zu stellen. Nach der Bereinigung aller Systemprotokolle und der Behebung letzter Boot-Fehlermeldungen wurde das sterile \texttt{clean-state} Image via \texttt{Partclone} auf sda2 gesichert. Den formalen Abschluss bildete die Erstellung der technischen Dokumentation sowie der Kundendokumentation für Webentwickler.
+\newpage
+
+\subsection{Zeit- und Ressourcenplanung}
+\textsl{Wie in Anlage \ref{gant} auf Seite \pageref*{gant} als Diagramm zu sehen ist.}\\
+
+\textbf{Phase 1: }Analyse und Definition \textit{(6 Stunden)}
+\begin{itemize}
+\item Ist-Analyse der bestehenden Infrastruktur \textit{(1h)}
+\item Aufnahme der funktionalen Anforderungen der Entwicklungsabteilung \textit{(2h)}
+\item Erstellung des Lastenhefts \textit{(1h)}
+\item Wirtschaftlichkeitsbetrachtung und Vergleich der Virtualisierungsmethoden \textit{(2h)}
+\end{itemize}
+\textbf{Phase 2:} Planung und Design \textit{(6 Stunden)}
+\begin{itemize}
+\item	Auswahl und Spezifikation der Hardwarekomponenten \textit{(2h)}
+\item Entwurf der Systemarchitektur\\
+(Schichtenmodell: Hardware -> OS -> CloudPanel -> LXC -> Docker) \textit{(2h)}
+\item Erstellung eines Sicherheits- und Backup-Konzepts \textit{(2h)}
+\end{itemize}
+\textbf{Phase 3:} Realisierung und Implementierung \textit{(16 Stunden)}
+\begin{itemize}
+\item Hardware-Montage, BIOS-Konfiguration und Installation des Basis-Betriebssystems \textit{(4h)}
+\item Installation und Konfiguration von CloudPanel \textit{(2h)}
+\item Einrichtung von LXD und Erstellung der System-Container-Profile \textit{(4h)}
+\item Implementierung der Docker-Umgebung innerhalb der LXC-Struktur \textit{(3h)}
+\item Installation und Konfiguration von Portainer zur Container-Verwaltung \textit{(3h)}
+\end{itemize}
+\textbf{Phase 4:} Test und Abnahme \textit{(4 Stunden)}
+\begin{itemize}
+\item Durchführung von Funktionstests (Deployment einer Beispiel-Applikation) \textit{(1,5h)}
+\item Validierung der Ressourcen-Limits und der Systemisolation \textit{(1,5h)}
+\item Projektabnahme \textit{(1h)}
+\end{itemize}
+\textbf{Phase 5: }Dokumentation \textit{(8 Stunden)}
+\begin{itemize}
+\item Erstellung der fachspezifischen Projektdokumentation \textit{(6h)}
+\item Erstellung einer Kundendokumentation (Bedienungsanleitung für Entwickler) \textit{(2h)}
+\end{itemize}
+
+\newpage
+\section{Durchführung}
+\bigskip
+\subsection{Detailplanung / Konzept}
+
+
+\subsection{Umsetzung / Implementierung}
+
+
+\subsubsection{Recovery - System}
+
+
+\subsubsection{Haupt - System}
+
+\paragraph{Grundsystem}
+
+\paragraph{Docker - Engine}
+
+\paragraph{Cloudpanel}
+
+\paragraph{Healer-Skript / Cron-Jobs}
+
+\paragraph{Einrichtung des Dashboards}
+
+
+\subsection{Qualitätssicherung (Testfälle / Abnahme)}
+
+\newpage
+\section{Projektabschluss}
+\bigskip
+\subsection{Soll - Ist - Vergleich}
+
+\subsection{Fazit / Zusammenfassung}
+
+\newpage
+
+%\listoffigures			%erstellt ein Abbildungsverzeichnis
+
+\appendix
+
+\section{Anlagen}
+\label{sec:anlagen}
+
+\subsection{Online-Repository und Versionsverwaltung}
+Der vollständige Quellcode, inklusive der Revisionshistorie und der verwendeten Dockerfiles, ist unter folgendem Link öffentlich zugänglich:
+
+\begin{center}
+	\url{https://github.com/KitoMossman/Sandbox}
+\end{center}
+
+Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die über den Umfang dieser gedruckten Dokumentation hinausgehen. Zu näheren Erklärung liegt auch eine \textbf{README.md} vor.
+
+\section{Anlagen - Diagramme}
+
+\subsection{Projektphasen und Zeitplanung (Wasserfallmodell)} \label{gant}
+
+\begin{center}
+	\begin{ganttchart}[
+		expand chart=\textwidth, % Nutzt die volle Breite
+		hgrid,
+		vgrid,
+		% x unit entfernt, damit expand chart sauber rechnet
+		y unit title=1cm,
+		y unit chart=0.8cm, % Mehr vertikaler Platz zwischen den Tasks
+		title/.style={draw=black!50, fill=black!5},
+		title label font=\bfseries\small,
+		canvas/.style={draw=black!50, fill=white},
+		bar/.style={fill=blue!60, draw=blue!80},
+		bar height=0.6, % Balken etwas dicker für bessere Sichtbarkeit
+		group right shift=0,
+		group top shift=0.6,
+		group height=.2,
+		group peaks tip position=0,
+		bar label font=\footnotesize, % Von \tiny auf \footnotesize für Lesbarkeit
+		bar label node/.append style={left=10pt}, % Schiebt Text weiter vom Chart weg
+		group label font=\footnotesize\bfseries,
+		milestone label font=\footnotesize\itshape
+		]{1}{40}
+		
+		\gantttitle{Stundenverteilung (Gesamtprojekt: 40h)}{40} \\
+		\gantttitlelist{1,5,10,15,20,25,30,35}{5} \\ % Übersichtlicher als 1-40 einzeln
+		
+		% Phase 1
+		\ganttgroup{Phase 1: Vorbereitung}{1}{6} \\
+		\ganttbar{Ist-Analyse}{1}{1} \\
+		\ganttbar{Anforderungen}{2}{3} \\
+		\ganttbar{Lastenheft}{4}{4} \\
+		\ganttbar{Wirtschaftlichkeit}{5}{6} \\
+		
+		% Phase 2
+		\ganttgroup{Phase 2: Planung}{7}{12} \\
+		\ganttbar{HW-Spezifikation}{7}{8} \\
+		\ganttbar{Systemarchitektur}{9}{10} \\
+		\ganttbar{Backup-Konzept}{11}{12} \\
+		
+		% Phase 3
+		\ganttgroup{Phase 3: Realisierung}{13}{28} \\
+		\ganttbar{HW/OS Install}{13}{16} \\
+		\ganttbar{CloudPanel Setup}{17}{18} \\
+		\ganttbar{LXD Konfig}{19}{22} \\
+		\ganttbar{Docker}{23}{25} \\
+		\ganttbar{Portainer}{26}{28} \\
+		
+		% Phase 4
+		\ganttgroup{Phase 4: Abschluss}{29}{32} \\
+		\ganttbar{Funktionstests}{29}{30} \\
+		\ganttbar{Validierung}{31}{32} \\
+		\ganttmilestone{Abnahme}{32} \\
+		
+		% Phase 5
+		\ganttgroup{Phase 5: Doku}{33}{40} \\
+		\ganttbar{Projektdokumentation}{33}{38} \\
+		\ganttbar{Kundendokumentation}{39}{40}
+	\end{ganttchart}
+\end{center}
+\newpage
+\section{Anlagen - Quelltexte}
+
+\subsection{Beispiel-Custom Grub-Konfiguration  (40\_custom)} \label{sda3:grub}
+\lstinputlisting[language=bash]{include/40_custom.grub.txt}
+\bigskip
+
+\subsection{Konfiguration von ttyd des Hauptsystems} \label{sda3:ttyd-web}
+\lstinputlisting[language=bash]{include/ttyd-web.txt}
+\bigskip
+
+\subsection{Cronjob des Root-Nutzers} \label{sda3:cron}
+\lstinputlisting{include/cronjob.txt}
+\bigskip
+\newpage
+\subsection{Auto-Healer-Script (nginx-autohealer.sh)} \label{sda3:healer}
+\lstinputlisting[language=bash]{include/nginx-autohealer.sh}
+\bigskip
+\newpage
+\subsection{Service-Script für den Factory-Reset (sda2-factory-reset.service)} \label{sda2:service}
+\lstinputlisting{include/sda2-factory-reset.service}
+\bigskip
+
+\subsection{Shell-Script für den Factory-Reset} \label{sda2:shell}
+\lstinputlisting[language=bash]{include/sda2-factory-restore.sh}
+\bigskip
+
+\subsection{Standard-Konfiguration der LXC-Container (default-profil.yaml)} \label{default-profil-yaml}
+\lstinputlisting[language=XML]{include/default-profil.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
+\bigskip
+
+\subsection{Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0).yaml)} \label{networks-yaml}
+\lstinputlisting[language=XML]{include/networks-lxdbr0.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
+\bigskip
+\subsection{Konfigurationsdatei des Docker-Containers (docker-sandbox.yaml)} \label{docker-yaml}
+\lstinputlisting[language=XML]{include/docker-sandbox.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
+\bigskip
+
+\subsection{Konfiguration von ttyd des LXC-Containers} \label{sda3:ttyd-docker}
+\lstinputlisting[language=bash]{include/ttyd-docker.txt}
+\bigskip
+\newpage
+\subsection{Ausschnitt der PHP-Datei des Dashboards (index.php)} \label{app:php_code}
+\lstinputlisting[language=PHP]{include/index_a.php}
+\bigskip
+
+\subsection{Ausschnitt der Design-Anpassungen (CSS)} \label{app:css_style}
+\lstinputlisting[language=HTML]{include/style_a.css}
+\bigskip
+
+\subsection{vHost des Reverse-Proxies Hauptsystem-TTYd} \label{vhost:web}
+\lstinputlisting[language=bash]{include/web-cli.sandbox.vhost.txt}
+\bigskip
+
+\subsection{vHost des Reverse-Proxies Container-TTYd} \label{vhost:docker}
+\lstinputlisting[language=bash]{include/docker-cli.sandbox.vhost.txt}
+
+\newpage
+\DeclareFieldFormat{url}{\newline\url{#1}}
+\DeclareFieldFormat{urldate}{\newline(abgerufen am #1)}
+\nocite{*} % Nimmt alle Quellen aus der .bib-Datei auf, auch ohne \cite
+% An der Stelle, an der das Verzeichnis gedruckt werden soll:
+\printbibliography[title={Quellenverzeichnis}, heading=bibintoc]
+
+\end{document}  %beendet das Dokument

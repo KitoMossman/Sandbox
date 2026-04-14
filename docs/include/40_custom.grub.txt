@@ -1,0 +1,15 @@
+# In /etc/grub.d/40_custom einfügen - UUID von /boot/grub.cfg übernehmen.
+# Verweist auf das Ubuntu Server Minimal auf /dev/sda2 mit dem hinzugefügtem Parameter "factory-reset quiet" was den Service sda2-factory-reset auslöst und das Shell-Script "sda2-factory-restore.sh" ausführt, was ohne Nachfrage via partclone das Image von /dev/sda3 zurückschreibt.
+
+menuentry 'FACTORY RESET!' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'osprober-gnulinux-simple-f2a1bb6d-314e-46bd-92b0-f5881f9660d6' {
+        insmod part_gpt
+        insmod ext2
+        set root='hd0,gpt2'
+        if [ x$feature_platform_search_hint = xy ]; then
+          search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  f2a1bb6d-314e-46bd-92b0-f5881f9660d6
+        else
+          search --no-floppy --fs-uuid --set=root f2a1bb6d-314e-46bd-92b0-f5881f9660d6
+        fi
+        linux /boot/vmlinuz-6.8.0-100-generic root=UUID=f2a1bb6d-314e-46bd-92b0-f5881f9660d6 ro factory-reset quiet
+        initrd /boot/initrd.img-6.8.0-100-generic
+}
