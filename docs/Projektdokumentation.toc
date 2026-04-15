@@ -1,0 +1,45 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung / Informationen}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Die pädagogische und technische Problemstellung}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Architektur und Sicherheitskonzept}{1}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Ressourceneffizienz unter Legacy-Bedingungen}{1}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Ist - Zustand}{2}{section.2}%
+\contentsline {section}{\numberline {3}Soll - Zustand}{2}{section.3}%
+\contentsline {section}{\numberline {4}Projektplanung}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Projektstrukturplan}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Zeit- und Ressourcenplanung}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Durchführung}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Detailplanung / Konzept}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Umsetzung / Implementierung}{5}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Recovery - System}{5}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2}Haupt - System}{5}{subsubsection.5.2.2}%
+\contentsline {paragraph}{\nonumberline Grundsystem}{5}{paragraph*.1}%
+\contentsline {paragraph}{\nonumberline Docker - Engine}{5}{paragraph*.2}%
+\contentsline {paragraph}{\nonumberline Cloudpanel}{5}{paragraph*.3}%
+\contentsline {paragraph}{\nonumberline Healer-Skript / Cron-Jobs}{5}{paragraph*.4}%
+\contentsline {paragraph}{\nonumberline Einrichtung des Dashboards}{5}{paragraph*.5}%
+\contentsline {subsection}{\numberline {5.3}Qualitätssicherung (Testfälle / Abnahme)}{5}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Projektabschluss}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Soll - Ist - Vergleich}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Fazit / Zusammenfassung}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {A}Anlagen}{7}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Online-Repository und Versionsverwaltung}{7}{subsection.A.1}%
+\contentsline {section}{\numberline {B}Anlagen - Diagramme}{8}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Projektphasen und Zeitplanung (Wasserfallmodell)}{8}{subsection.B.1}%
+\contentsline {section}{\numberline {C}Anlagen - Quelltexte}{9}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Beispiel-Custom Grub-Konfiguration (40\_custom)}{9}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Konfiguration von ttyd des Hauptsystems}{9}{subsection.C.2}%
+\contentsline {subsection}{\numberline {C.3}Cronjob des Root-Nutzers}{9}{subsection.C.3}%
+\contentsline {subsection}{\numberline {C.4}Auto-Healer-Script (nginx-autohealer.sh)}{10}{subsection.C.4}%
+\contentsline {subsection}{\numberline {C.5}Service-Script für den Factory-Reset (sda2-factory-reset.service)}{13}{subsection.C.5}%
+\contentsline {subsection}{\numberline {C.6}Shell-Script für den Factory-Reset}{13}{subsection.C.6}%
+\contentsline {subsection}{\numberline {C.7}Standard-Konfiguration der LXC-Container (default-profil.yaml)}{14}{subsection.C.7}%
+\contentsline {subsection}{\numberline {C.8}Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0).yaml)}{14}{subsection.C.8}%
+\contentsline {subsection}{\numberline {C.9}Konfigurationsdatei des Docker-Containers (docker-sandbox.yaml)}{14}{subsection.C.9}%
+\contentsline {subsection}{\numberline {C.10}Konfiguration von ttyd des LXC-Containers}{15}{subsection.C.10}%
+\contentsline {subsection}{\numberline {C.11}Ausschnitt der PHP-Datei des Dashboards (index.php)}{16}{subsection.C.11}%
+\contentsline {subsection}{\numberline {C.12}Ausschnitt der Design-Anpassungen (CSS)}{17}{subsection.C.12}%
+\contentsline {subsection}{\numberline {C.13}vHost des Reverse-Proxies Hauptsystem-TTYd}{19}{subsection.C.13}%
+\contentsline {subsection}{\numberline {C.14}vHost des Reverse-Proxies Container-TTYd}{20}{subsection.C.14}%
+\contentsline {section}{\nonumberline Quellenverzeichnis}{21}{section*.6}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
