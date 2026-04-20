@@ -12,8 +12,8 @@ bibliography=totoc
 \usepackage{graphicx}
 \usepackage[ngerman]{babel}
 \usepackage{listings}
-\usepackage{csquotes}
 \usepackage[utf8]{inputenc}
+\usepackage{csquotes}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
 \usepackage{graphicx}
@@ -46,6 +46,8 @@ autocite=plain
 % Verhindert, dass URLs über den Rand ragen
 \usepackage{xurl} 
 \hypersetup{breaklinks=true}
+\usepackage{etoc}
+\usepackage{float}
 
 %Fusszeilen Einstellungen
 \newcommand{\fusszeilentitel}{Ingo Weber} % Hier kommt Ihr Name rein
@@ -158,20 +160,20 @@ Durch eine rigorose Auswahl schlanker Software-Stacks und eine effiziente Speich
 \section{Ist - Zustand}
 In klassischen schulischen IT-Umgebungen besteht ein inhärenter Zielkonflikt: Werden den Schülern weitreichende Rechte, wie Shell-Zugriff oder Berechtigungen zur Modifikation von Webserverkonfigurationen, eingeräumt, kommt es durch Fehlbedienungen ("Copy-Paste-Fehler", versehentliches Löschen von Systempfaden) unweigerlich zu kritischen Systemausfällen.
 Ein einziger fehlerhafter Syntax-Eintrag in einer Webserver-Konfiguration durch einen Nutzer führt nach einem Neustart des Daemons zum Ausfall aller anderen auf dem Server gehosteten Schüler-Projekte.
-Bisherige Lösungsansätze basierten entweder auf starker Restriktion (was den Lerneffekt minimiert) oder auf hohem administrativen Overhead für die Lehrkräfte, die das System nach Fehlern manuell debuggen oder aus Backups wiederherstellen mussten. Zudem erforderte eine vollständige Virtualisierung jedes Schüler-Arbeitsplatzes Hardware-Ressourcen, die in dem vorliegenden Szenario (8 GB RAM) physisch nicht abgebildet werden können.	
+Bisherige Lösungsansätze basierten entweder auf starker Restriktion (was den Lerneffekt minimiert) oder auf hohem administrativen Overhead für die Verantwortlichen, die das System nach Fehlern manuell debuggen oder aus Backups wiederherstellen mussten. Zudem erforderte eine vollständige Virtualisierung jedes Schüler-Arbeitsplatzes Hardware-Ressourcen, die in dem vorliegenden Szenario (8 GB RAM) physisch nicht abgebildet werden können.	
 		
 \section{Soll - Zustand}
 Ziel des Projekts ist die Implementierung eines fehlertoleranten, sich selbst korrigierenden Systems (Trampolin-Prinzip). Der Soll-Zustand definiert sich durch folgende Kernanforderungen:
 
 \begin{itemize}
 
-\item{Hardware-Effizienz:} Das primäre Web-Hosting-Stack (CloudPanel, Nginx, PHP, MariaDB) muss nativ auf dem Bare-Metal-Host (Ubuntu 24.04 LTS) betrieben werden, um Virtualisierungs-Overhead zu vermeiden und die Leistung auf der limitierten Hardware zu maximieren.
+\item{Hardware-Effizienz:} Das primäre Web-Hosting-Stack (CloudPanel, Nginx, PHP, MySQL) muss nativ auf dem Bare-Metal-Host (Ubuntu 24.04 LTS) betrieben werden, um Virtualisierungs-Overhead zu vermeiden und die Leistung auf der limitierten Hardware zu maximieren.
 
 \item{Gezielte Isolation:} Experimentelle oder potenziell ressourcenfressende Applikationen (z.B. Docker-Engines) dürfen nicht auf dem Host laufen, sondern müssen in leichtgewichtige Systemcontainer (LXC via LXD) ausgelagert werden.
 
 \item{Autonomes Auto-Healing:} Das System muss in der Lage sein, fatale Konfigurationsfehler oder destruktive Dateioperationen der Nutzer autonom zu erkennen. Ein Watchdog-Skript soll defekte Konfigurationen isolieren und fehlende Verzeichnisstrukturen (Superset) selbstständig regenerieren, um Host-Crashes präventiv abzuwenden.
 
-\item{Zentrale Telemetrie und Recovery:} Es muss ein zentrales Web-Dashboard (Infrastructure Hub) geschaffen werden, das Administratoren (und Lehrkräften) in Echtzeit die Systemlast anzeigt, Fehlerzustände visualisiert und eine One-Click-Wiederherstellung von Containern (Soft Reset) oder der gesamten Host-Partition (Hard Reset via partclone) ermöglicht.
+\item{Zentrale Telemetrie und Recovery:} Es muss ein zentrales Web-Dashboard (Infrastructure Hub) geschaffen werden, das Administratoren in Echtzeit die Systemlast anzeigt, Fehlerzustände visualisiert und eine One-Click-Wiederherstellung von Containern (Soft Reset) oder der gesamten Host-Partition (Hard Reset via partclone) ermöglicht.
 
 \end{itemize}
 
@@ -235,25 +237,150 @@ Die finale fünfte Phase umfasste die \textbf{Validierung und den Projektabschlu
 \bigskip
 \subsection{Detailplanung / Konzept}
 
+Hardware siehe Tabelle \ref{hardware} auf Seite \pageref{hardware}.
+
+\paragraph{Betriebskonzept und Energiemanagement}
+Ein wesentlicher Aspekt des stabilen Dauerbetriebs am Einsatzort ist die Koordination mit der lokalen Stromversorgung. Da im Lernort zum Betriebsende die Stromzufuhr zentral deaktiviert wird, wurde ein zweistufiges Verfahren implementiert:
+
+\begin{itemize}
+	\item \textbf{Kontrolliertes Herunterfahren (Software):} Ein konfigurierter Cronjob führt arbeitstäglich vor der Stromabschaltung den Befehl \texttt{sudo poweroff} aus. Dies stellt sicher, dass alle laufenden LXD-Container und Docker-Instanzen ihre Schreibvorgänge abschließen und das Dateisystem sauber ausgehängt wird, um Datenverlust oder Inkonsistenzen zu vermeiden.
+	\item \textbf{Automatischer Kaltstart (Hardware):} Durch die UEFI-Einstellung \textit{„Restore on AC/Power Loss“} auf \textit{„Power On“} wird sichergestellt, dass der ThinClient am nächsten Morgen bei Wiederherstellung der Stromzufuhr autonom startet, ohne dass ein manuelles Eingreifen des Personals erforderlich ist. (siehe Abbildung \ref{fig:uefi} auf Seite \pageref{fig:uefi})
+\end{itemize}
 
 \subsection{Umsetzung / Implementierung}
 
+Die Initialisierung des Projekts begann mit der Vorbereitung des Installationsmediums sowie der Hardware-Konfiguration des Zielsystems. Dieser Prozess gliedert sich in die folgenden Schritte:
 
-\subsubsection{Recovery - System}
+\begin{enumerate}
+	\item \textbf{Bereitstellung des Installationsmediums:} 
+	Zunächst wurde das offizielle ISO-Abbild von Ubuntu Server in der aktuellsten Version bezogen \cite{ubuntu_server}. Zur Erstellung des bootfähigen Mediums wurde das Open-Source-Tool \textit{Ventoy} verwendet. Im Gegensatz zu herkömmlichen Imaging-Verfahren erlaubt Ventoy das direkte Starten von ISO-Dateien durch einfaches Kopieren auf den Datenträger, was eine flexible Handhabung verschiedener Installationsmedien ermöglicht.
+	
+	\item \textbf{Hardware-Konfiguration (UEFI/BIOS):} 
+	Als Zielhardware dient ein ThinClient, dessen Firmware-Einstellungen (BIOS/UEFI) für den Serverbetrieb optimiert werden mussten. Eine zentrale Anforderung für den Headless-Betrieb ist die Hochverfügbarkeit nach einem Stromausfall. Daher wurde im Power-Management des Geräts die Option \textit{„Restore on AC/Power Loss“} auf \textit{„Power On“} gestellt. Dies stellt sicher, dass das System autonom startet, sobald die Stromversorgung wiederhergestellt ist, ohne dass ein manueller Eingriff erforderlich ist.
+	
+\end{enumerate}
 
+\subsubsection{Recovery-System und Partitionierung}
+
+Um eine hohe Systemstabilität sowie eine einfache Wiederherstellung im Fehlerfall zu gewährleisten, wurde ein dediziertes Recovery-System implementiert. Die Installation basiert auf der Minimal-Variante von Ubuntu Server, um den Footprint und die potenzielle Angriffsfläche des Wartungssystems gering zu halten.
+
+\paragraph{Installation und Speicherlayout}
+Während der Installation wurde die SSD manuell partitioniert, um das Recovery-System logisch vom späteren Hauptsystem zu trennen und die Integrität der Wartungsumgebung zu sichern. Das Speicherlayout wurde wie folgt strukturiert:
+
+\begin{itemize}
+	\item \textbf{sda1}: Bootloader (GRUB) zur zentralen Steuerung des Startvorgangs.
+	\item \textbf{sda2}: Recovery-System (20 GB), eingehängt als Root-Verzeichnis (\texttt{/}). Diese Partition beherbergt die notwendigen Werkzeuge und Skripte für den Werksreset.
+	\item \textbf{sda3}: Hauptsystem (Restkapazität der SSD), welches in dieser Phase unformatiert bleibt und als Ziel für die spätere Image-Wiederherstellung dient.
+\end{itemize}
+
+Für die initiale Netzwerkanbindung wird DHCP genutzt, wobei der Hostname auf \texttt{recovery-sandbox} festgelegt wurde. Zur Fernwartung und Konfiguration wurde bereits während des Setups ein \textbf{SSH-Server} aktiviert. Nach der Grundinstallation wurde das System unmittelbar auf den aktuellen Stand gebracht und um die benötigten Werkzeuge für die Partitionssicherung ergänzt:
+
+\begin{lstlisting}[language=bash]
+	sudo apt update && sudo apt dist-upgrade -y
+	sudo apt install -y partclone gzip pv nano
+\end{lstlisting}
+
+\paragraph{Automatisierung des Werksreset}
+Zur Implementierung einer automatisierten Wiederherstellungsroutine wurde eine Systemd-Service-Unit eingerichtet. Dieser Dienst fungiert als Schnittstelle zum Bootvorgang und triggert ein Shell-Skript, welches die automatisierte Rücksetzung des Hauptsystems auf \texttt{sda3} übernimmt.\\
+
+Zunächst wurde die Service-Unit (siehe Anhang \ref{sda2:service}) im Verzeichnis \emph{/etc/systemd/system/} mit einen Texteditor erstellt:
+\begin{lstlisting}[language=bash]
+	sudo nano /etc/systemd/system/factory-reset.service
+\end{lstlisting}
+
+\bigskip
+Und anschliesend für den Systemstart aktiviert:
+\begin{lstlisting}[language=bash]
+	sudo systemctl enable factory-reset.service
+\end{lstlisting}
+
+\bigskip
+Das ausführende Logik-Skript wurde unter \texttt{/usr/local/bin/factory-restore.sh} hinterlegt. Dieses Skript (siehe Anhang \ref{sda2:shell}) validiert beim Bootvorgang das Vorhandensein des Recovery-Triggers in der Kernel-Commandline und führt bei Bedarf die Formatierung sowie die Rückspielung des System-Images durch. Um die Ausführbarkeit sicherzustellen, wurde die Datei mit den entsprechenden Rechten versehen:
+\begin{lstlisting}[language=bash]
+	sudo chmod +x /usr/local/bin/factory-restore.sh
+\end{lstlisting}
 
 \subsubsection{Haupt - System}
 
-\paragraph{Grundsystem}
+\paragraph{Installation des Hauptsystems}
 
-\paragraph{Docker - Engine}
+Nachdem die grundlegende Recovery-Infrastruktur auf der Partition \texttt{sda2} etabliert wurde, erfolgte im nächsten Schritt die Bereitstellung des eigentlichen Betriebssystems auf der verbleibenden Partition \texttt{sda3}. Ziel war es, eine voll funktionsfähige Arbeitsumgebung zu schaffen, die als Basis für spätere Applikationen und Container-Szenarien dient.\\
 
-\paragraph{Cloudpanel}
+\paragraph{Systemkonfiguration und Basis-Setup}
+
+Die Installation des Hauptsystems basiert ebenfalls auf Ubuntu Server, wurde jedoch im Gegensatz zum Recovery-System als Standard-Installation ("Normal-Installation") durchgeführt. Dies stellt sicher, dass alle gängigen Bibliotheken und Werkzeuge für den produktiven Betrieb bereits vorinstalliert sind.\\
+
+Die Konfiguration während des Setups wurde nach folgenden Parametern vorgenommen:\\
+
+\textbf{Partitionierung:} Als Zielpartition wurde die zuvor freigehaltene Partition \texttt{sda3} gewählt und als Root-Dateisystem (\texttt{/}) formatiert.\\
+
+\textbf{Netzwerk:} Um eine dynamische Integration in die bestehende Laborumgebung zu gewährleisten, wurde die Netzwerkschnittstelle auf den Bezug via DHCP konfiguriert.\\
+
+\textbf{Identifikation:} Zur eindeutigen Unterscheidung vom Wartungssystem wurde der Hostname auf \texttt{sandbox} festgelegt.\\
+
+\textbf{Zugriff:} Für die Administration über das Netzwerk wurde der OpenSSH-Server bereits während des Installationsdialogs aktiviert.\\
+
+\paragraph{Integration von Virtualisierung und Containern}
+
+Ein wesentlicher Bestandteil des Hauptsystems ist die Bereitstellung von Virtualisierungskapazitäten. Hierfür wurde bereits während der Installation die Auswahl des LXD-Snaps getroffen. LXD fungiert als moderner System-Container- und Virtualisierungsmanager, der es ermöglicht, isolierte Umgebungen effizient zu verwalten. Durch die Integration als Snap-Paket wird sichergestellt, dass der Dienst automatisch aktualisiert wird und in einer stabilen, vom restlichen System isolierten Umgebung operiert.\\
+
+Nach dem ersten Bootvorgang wurde das System finalisiert und der Dienst ttyd installiert:
+\begin{lstlisting}[language=bash]
+	sudo apt update && sudo apt dist-upgrade -y
+	sudo apt install ttyd
+\end{lstlisting}
+
+\bigskip
+Weiter wird dann die Datei \emph{/etc/default/ttyd} wie in Anhang \ref{sda3:ttyd-web} angepasst und anschließend der Dienst aktiviert und gestartet:
+\begin{lstlisting}[language=bash]
+	sudo systemctl enable ttyd
+	sudo systemctl start ttyd
+\end{lstlisting}
+
+\paragraph{Installation von Node.js und CloudPanel}
+
+Nach der Grundkonfiguration des Hauptsystems erfolgt die Einrichtung der Laufzeitumgebungen und des Hosting-Control-Panels. Ein besonderer Fokus liegt hierbei auf der Kompatibilität der Softwarekomponenten und der initialen Absicherung des Systems.
+
+\subparagraph{Laufzeitumgebung Node.js}
+Für die Ausführung moderner Web-Applikationen wird Node.js benötigt. Da CloudPanel aktuell die Versionen 20 und 22 unterstützt, Version 24 jedoch noch nicht freigegeben ist, werden gezielt diese beiden LTS-Versionen (Long Term Support) installiert. Um ein flexibles Management zwischen diesen Versionen zu ermöglichen, wird der \textit{Fast Node Manager} (fnm) eingesetzt. Dieser erlaubt einen schnellen Wechsel der aktiven Version und eine saubere Trennung der Binaries.\\
+
+Die Installation erfolgt über die offiziellen Quellen mittels der folgenden Befehlskette, die auf der Webseite: \emph{https://nodejs.org/en/download} zu finden ist.
+
+\begin{lstlisting}[language=bash]
+	# Installation des Fast Node Managers (fnm)
+	curl -o- https://fnm.vercel.app/install | bash
+	
+	# Installation der benoetigten Node.js Versionen
+	fnm install 22
+	fnm install 20
+\end{lstlisting}
+
+\subparagraph{CloudPanel Control Panel und administrativer Abschluss}
+Als zentrale Verwaltungsoberfläche für den Serverbetrieb wird \textbf{CloudPanel} eingesetzt. Die Wahl fiel auf die Community Edition (CE) in Kombination mit einer leistungsstarken MySQL 8.0 Datenbank-Engine. Der Installationsprozess wird über ein offizielles Skript automatisiert, der auf der Webseite: \emph{https://www.cloudpanel.io/docs/v2/getting-started/other/} zu finden ist, wobei zur Sicherstellung der Datenintegrität vor der Ausführung eine Verifizierung des Skript-Hashwerts erfolgt.\\
+
+Der Installationsvorgang wird mit folgendem Befehl initiiert:
+
+\begin{lstlisting}[language=bash]
+	# Herunterladen und Verifizieren des CloudPanel-Installers
+	curl -sS https://installer.cloudpanel.io/ce/v2/install.sh -o install.sh
+	echo "19cfa702e7936a79e47812ff57d9859175ea902c62a68b2c15ccd1ebaf36caeb install.sh" | sha256sum -c && sudo DB_ENGINE=MYSQL_8.0 bash install.sh
+\end{lstlisting}
+\bigskip
+Nachdem das Skript die Installation der Pakete und der Datenbank abgeschlossen hat, ist das Panel über den Port 8443 erreichbar. Der abschließende Schritt der Grundinstallation ist die \textbf{Einrichtung des Administrator-Kontos}. Da zu diesem Zeitpunkt noch kein Benutzer im System hinterlegt ist, wird über das Web-Interface der erste privilegierte Benutzer angelegt. Hierbei werden die administrativen Zugangsdaten sowie die Standard-E-Mail-Adresse für Systembenachrichtigungen definiert. \\
+
+Erst mit der Erstellung dieses Admin-Users ist die Konfiguration der "`Sandbox"'-Umgebung abgeschlossen und das System befindet sich in einem definierten Zustand, der als Basis für das finale Deployment-Image dient.
+
+\paragraph{Einrichtung von LXD und des LXC-Containers mit der Docker - Engine und Portainer}
 
 \paragraph{Healer-Skript / Cron-Jobs}
 
 \paragraph{Einrichtung des Dashboards}
 
+\paragraph{Einrichtung der Boot-Option für den automatischen Factory-Reset}
+
+\paragraph{Konfiguration der OpenSense}
+
+\paragraph{Erstellung des Factory-Images}
 
 \subsection{Qualitätssicherung (Testfälle / Abnahme)}
 
@@ -269,11 +396,30 @@ Die finale fünfte Phase umfasste die \textbf{Validierung und den Projektabschlu
 %\listoffigures			%erstellt ein Abbildungsverzeichnis
 
 \appendix
+% 1. Seitenzähler auf römisch umstellen (große römische Ziffern: I, II, III)
+% Falls du kleine römische Ziffern (i, ii, iii) willst, nutze \pagenumbering{roman}
+\pagenumbering{Roman}
+
+% 2. Den Zähler explizit auf 1 zurücksetzen
+\setcounter{page}{1}
 
 \section{Anlagen}
 \label{sec:anlagen}
 
-\subsection{Online-Repository und Versionsverwaltung}
+\subsection*{Inhaltsübersicht des Anhangs}
+
+\begin{description}
+	\item \textbf{Diagramme und Screenshots} \dotfill S. \pageref{sec:diagramme}
+	\item[] \textit{\footnotesize \hspace{0.3cm} Enthält das Gantt-Chart zur zeitlichen Stundenverteilung und die Bildschirmaufnahmen.}
+	\item \textbf{Quelltexte und Konfigurationen} \dotfill S. \pageref{sec:quellcode}
+	\item[] \textit{\footnotesize \hspace{0.3cm} Enthält die Quelltexte sämtlicher Scripte und angelegten Dateien.}
+	\item \textbf{Hostnamen, IP-Adressen, Initial-Passwörter} \dotfill S. \pageref{sec:pass}
+	\item[] \textit{\footnotesize \hspace{0.3cm} Auflistung aller bei der Installation eingerichteten Passwörter, IP-Adressen und FQDNs.}
+	\item \textbf{Quellenverzeichnis} \dotfill S. \pageref{sec:quellen}
+	\item[] \textit{\footnotesize \hspace{0.3cm} Vollständige Auflistung aller verwendeten Online-Ressourcen und Dokumentationen.}
+\end{description}
+
+\subsection*{Online-Repository und Versionsverwaltung}
 Der vollständige Quellcode, inklusive der Revisionshistorie und der verwendeten Dockerfiles, ist unter folgendem Link öffentlich zugänglich:
 
 \begin{center}
@@ -282,7 +428,9 @@ Der vollständige Quellcode, inklusive der Revisionshistorie und der verwendeten
 
 Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die über den Umfang dieser gedruckten Dokumentation hinausgehen. Zu näheren Erklärung liegt auch eine \textbf{README.md} vor.
 
-\section{Anlagen - Diagramme}
+\newpage
+\section{Anlagen - Diagramme und Screenshots}
+\label{sec:diagramme}
 
 \subsection{Projektphasen und Zeitplanung (Wasserfallmodell)} \label{gant}
 
@@ -346,7 +494,44 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 	\end{ganttchart}
 \end{center}
 \newpage
+\subsection{Tabellen}
+
+\begin{table}[h]
+	\centering
+	\caption{Hardwarespezifikationen des Zielsystems}
+	\label{hardware}
+	\begin{tabular}{ll}
+		\hline
+		\textbf{Komponente} & \textbf{Spezifikation} \\ \hline
+		Modell              & Terra ThinClient \\
+		Prozessor (CPU)     & Intel Core i5-3450 (4 Kerne, bis 3,50 GHz) \\
+		Arbeitsspeicher     & 8 GB DDR3 RAM \\
+		Festplatte          & 120 GB SATA SSD \\
+		Netzwerk            & Gigabit Ethernet \\
+		Besonderheit        & UEFI mit Auto-Power-On Support \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{Bildschirmaufnahmen / Fotos}
+
+\begin{figure}[H]
+	\centering
+	\caption{Fotos des Terra Thinclient PCs}
+	\label{fig:foto}
+	\includegraphics[width=0.9\linewidth]{include/foto.png}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{UEFI - Einstellung}
+	\label{fig:uefi}
+	\includegraphics[width=0.9\linewidth]{include/UEFI}
+\end{figure}
+
+
+\newpage
 \section{Anlagen - Quelltexte}
+\label{sec:quellcode}
 
 \subsection{Beispiel-Custom Grub-Konfiguration  (40\_custom)} \label{sda3:grub}
 \lstinputlisting[language=bash]{include/40_custom.grub.txt}
@@ -403,10 +588,41 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 \lstinputlisting[language=bash]{include/docker-cli.sandbox.vhost.txt}
 
 \newpage
+\section{Anlagen - Hostnamen, IP-Adressen, Initial-Passwörter} \label{sec:pass}
+
+\begin{table}[H]
+	\centering
+	\caption{Detaillierte Dienst- und Portmatrix der Sandbox}
+	\begin{tabular}{llll}
+		\hline
+		\textbf{Dienst} & \textbf{IP-Adresse} & \textbf{Port} & \textbf{URL} \\ \hline
+		Web-Server (Hub)   & \texttt{192.168.100.21} & 443   & \texttt{https://sandbox.ma.ki/} \\
+		CloudPanel UI      & \texttt{192.168.100.21} & 8443  & \texttt{https://sandbox.ma.ki:8443/} \\
+		LXD Dashboard      & \texttt{192.168.100.21} & 9443  & \texttt{https://sandbox.ma.ki:9443/} \\
+		SSH-Host (Hauptsystem)          & \texttt{192.168.100.21} & 22    & \texttt{ssh://web@sandbox.ma.ki} \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Initial-Passwörter}
+	\begin{tabular}{lll}
+		\hline
+		\textbf{Dienst} & \textbf{Username} & \textbf{Passwort} \\ \hline
+		Recovery Shell/SSH   & agent & IT123\_maki \\
+		Hauptsystem Shell/SSH      & web & IT123\_maki \\
+		Cloudpanel UI & admin         & IT123\_maki \\
+		Docker LXC Shell/SSH         & root & IT123\_maki \\
+		Portainer UI          & admin & IT123456\_maki \\ \hline
+	\end{tabular}
+\end{table}
+
+\newpage
 \DeclareFieldFormat{url}{\newline\url{#1}}
 \DeclareFieldFormat{urldate}{\newline(abgerufen am #1)}
 \nocite{*} % Nimmt alle Quellen aus der .bib-Datei auf, auch ohne \cite
 % An der Stelle, an der das Verzeichnis gedruckt werden soll:
 \printbibliography[title={Quellenverzeichnis}, heading=bibintoc]
+\label{sec:quellen}
 
 \end{document}  %beendet das Dokument

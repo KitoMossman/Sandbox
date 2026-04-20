@@ -6,6 +6,14 @@ Dieses Repository dient als Sandbox und Sammlung verschiedener Konfigurationsdat
 
 Die Dateien sind nach Themen und Anwendungsbereichen in folgende Verzeichnisse unterteilt:
 
+### `docs/`
+Dokumentation für das Projekt.
+- Enthält neben der Projektdokumentation auch die Kundendokumentation.
+
+### `include/`
+Ressourcen für die Dokumentationserstellung.
+- Enthält die Dateien, die im LaTeX-Dokument verwendet werden.
+
 ### `lxc/`
 Konfigurationsdateien für **LXC/LXD** Container.
 - Enthält Standardprofile (`default-profil.yaml`)
