@@ -3,7 +3,7 @@
 # Prüft, ob Nginx läuft. Wenn nicht, wird die Konfiguration getestet.
 # Neu: Testet isolierte (.broken) Dateien auf erfolgreiche manuelle Reparatur.
 # Regeneriert komplette Verzeichnisstrukturen (Superset-Methode NodeJS/PHP) oder isoliert fehlerhafte vHosts.
-# Manueller Aufruf: ./nginx-healer.sh --force (oder -f)
+# Manueller Aufruf: nginx-autohealer --force (oder -f)
 
 # --- PARAMETER CHECK (MANUAL OVERRIDE) ---
 FORCE_RUN=0

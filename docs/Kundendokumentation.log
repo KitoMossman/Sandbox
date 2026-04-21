@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.13)  21 APR 2026 13:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.4.13)  21 APR 2026 13:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Projektdokumentation.tex
-(./Projektdokumentation.tex
+**Kundendokumentation.tex
+(./Kundendokumentation.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
 (/usr/local/texlive/2026/texmf-dist/tex/latex/koma-script/scrartcl.cls
@@ -1226,11 +1226,11 @@ Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'ngerman'.
 
-(./Projektdokumentation.aux
+(./Kundendokumentation.aux
 Package babel Info: 'ngerman' activates 'german' shorthands.
 (babel)             Reported on input line 12.
 )
-\openout1 = `Projektdokumentation.aux'.
+\openout1 = `Kundendokumentation.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
 LaTeX Font Info:    ... okay on input line 91.
@@ -1336,19 +1336,19 @@ File: german.lbx 2025/07/10 v3.21 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `Projektdokumentation.bcf'.
+\openout4 = `Kundendokumentation.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Projektdokumentation.bbl' found.
+Package biblatex Info: ... file 'Kundendokumentation.bbl' found.
 
-(./Projektdokumentation.bbl)
+(./Kundendokumentation.bbl)
 Package biblatex Info: Reference section=0 on input line 91.
 Package biblatex Info: Reference segment=0 on input line 91.
 \Etoc@tf=\read5
 <include/logo.png, id=7, 2826.56pt x 1541.76pt>
 File: include/logo.png Graphic file (type png)
 <use include/logo.png>
-Package pdftex.def Info: include/logo.png  used on input line 108.
+Package pdftex.def Info: include/logo.png  used on input line 107.
 (pdftex.def)             Requested size: 386.95897pt x 211.06927pt.
  [1
 
@@ -1356,398 +1356,72 @@ Package pdftex.def Info: include/logo.png  used on input line 108.
 al/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <./include
 /logo.png>]
 \tf@toc=\write5
-\openout5 = `Projektdokumentation.toc'.
+\openout5 = `Kundendokumentation.toc'.
 
-Package cleveref Info: loaded `ngerman' language definitions on input line 127.
+Package cleveref Info: loaded `ngerman' language definitions on input line 123.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 127.
+(Font)              <10.95> on input line 123.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 127.
+(Font)              <8> on input line 123.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 127.
-
-Overfull \hbox (3.67865pt too wide) detected at line 127
- []\T1/cmr/m/n/10.95 VIII
- []
-
-
-Overfull \hbox (3.37564pt too wide) detected at line 127
- []\T1/cmr/m/n/10.95 XIV
- []
-
-
-Overfull \hbox (3.37564pt too wide) detected at line 127
- []\T1/cmr/m/n/10.95 XIV
- []
-
-
-Overfull \hbox (7.60767pt too wide) detected at line 127
- []\T1/cmr/m/n/10.95 XVII
- []
-
-
-Overfull \hbox (11.83969pt too wide) detected at line 127
- []\T1/cmr/m/n/10.95 XVIII
- []
-
-
-Overfull \hbox (2.46286pt too wide) detected at line 127
- []\T1/cmss/bx/n/10.95 XIX
- []
-
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
-
- []
-
-
-Overfull \hbox (1.84076pt too wide) in paragraph at lines 152--153
-\T1/cmr/m/n/10.95 Selbst-hei-lung. Durch au-to-ma-ti-sier-te Rollback-Mechanism
-en oder die In-stan-zi-ie-rung von ^^RWegwerf-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
-
- []
-
-
+(Font)              <6> on input line 123.
+ [2]
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.164 		
-         [1{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-super/cm-supe
-r-ts1.enc}]
-Overfull \hbox (0.93501pt too wide) in paragraph at lines 172--173
-[]\T1/cmr/m/n/10.95 Gezielte Iso-la-ti-on: Ex-pe-ri-men-tel-le oder po-ten-zi-e
-ll res-sour-cen-fres-sen-de Ap-pli-ka-tio-nen (z.B. Docker-
- []
-
-
+l.158 	\newpage
+                [1]
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
+(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+)
 pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.180 \newpage
-               [2]
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 185--191
-
- []
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
-
- []
-
-[4]
-Overfull \hbox (25.04366pt too wide) in paragraph at lines 253--255
-[]\T1/cmr/bx/n/10.95 Hardware-Konfiguration (UE-FI/BIOS): \T1/cmr/m/n/10.95 Als
- Ziel-hard-wa-re dient ein Thin-Cli-ent, des-sen Firmware-
- []
-
-[5] (/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
-
- []
-
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 302--303
-
- []
-
-
-Overfull \hbox (20.42818pt too wide) in paragraph at lines 306--307
-\T1/cmr/m/n/10.95 tu Ser-ver, wur-de je-doch im Ge-gen-satz zum Recovery-System
- als Standard-Installation (Normal-Installation)
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--307
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 310--311
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 312--313
-
- []
-
-
-Overfull \hbox (7.07536pt too wide) in paragraph at lines 314--315
-[]\T1/cmr/bx/n/10.95 Identifikation: \T1/cmr/m/n/10.95 Zur ein-deu-ti-gen Un-te
-r-schei-dung vom War-tungs-sys-tem wur-de der Host-na-me auf \T1/cmtt/m/n/10.95
- sandbox
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 316--317
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
-
- []
-
-[7]
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 364--365
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 373--374
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 375--376
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
-
- []
-
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 420--421
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 436--437
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 446--447
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 448--449
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 457--458
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 459--460
-
- []
-
-
-Overfull \hbox (22.40749pt too wide) in paragraph at lines 468--469
-[]\T1/cmr/bx/n/10.95 Docker-Terminal: \T1/cmr/m/n/10.95 Lei-tet den Zu-griff in
- die iso-lier-te Um-ge-bung des LXC-Containers \T1/cmtt/m/n/10.95 docker-sandbo
-x
- []
-
-[11]
-Overfull \hbox (66.21588pt too wide) in paragraph at lines 478--479
-[] \T1/cmss/bx/n/10.95 Kon-fi-gu-ra-ti-on des Custom-Boot-Eintrags[][] \T1/cmr/
-m/n/10.95 Die Im-ple-men-tie-rung er-folgt über die Da-tei \T1/cmtt/m/n/10.95 /
-etc/grub.d/40_custom\T1/cmr/m/n/10.95 .
- []
-
-
-Overfull \hbox (18.44614pt too wide) in paragraph at lines 480--481
-\T1/cmtt/m/n/10.95 factory-reset \T1/cmr/m/n/10.95 und \T1/cmtt/m/n/10.95 quiet
-\T1/cmr/m/n/10.95 . Wäh-rend \T1/cmtt/m/n/10.95 quiet \T1/cmr/m/n/10.95 le-dig-
-lich die Boot-Ausgaben un-ter-drückt, dient \T1/cmtt/m/n/10.95 factory-reset
- []
-
-
-Overfull \hbox (51.52548pt too wide) in paragraph at lines 480--481
-\T1/cmr/m/n/10.95 als funk-tio-na-ler Aus-lö-ser. Nach dem La-den des Ker-nels 
-er-kennt die Systemd-Service-Unit \T1/cmtt/m/n/10.95 factory-reset.service
- []
-
-
-Overfull \hbox (0.68932pt too wide) in paragraph at lines 489--490
-[]\T1/cmr/m/n/10.95 Durch die-se Kon-fi-gu-ra-ti-on wird ein ^^ROne-Touch^^P-Re
-covery-Mechanismus ge-schaf-fen. So-bald die-ser Boot-
- []
-
-
-Overfull \hbox (14.1147pt too wide) in paragraph at lines 510--511
-[]\T1/cmr/bx/n/10.95 docker-sandbox.ma.ki\T1/cmr/m/n/10.95 : Zeigt auf \T1/cmtt
-/m/n/10.95 192.168.100.22 \T1/cmr/m/n/10.95 (Di-rekt-zu-griff auf die Container
--Infrastruktur). 
- []
-
-[12]
-Overfull \hbox (21.47194pt too wide) in paragraph at lines 530--531
-[] \T1/cmss/bx/n/10.95 Image-Erstellung via Part-clo-ne[][] \T1/cmr/m/n/10.95 N
-ach dem Neu-start be-fin-det sich das Sys-tem in der \T1/cmtt/m/n/10.95 recover
-y-sandbox\T1/cmr/m/n/10.95 .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 530--531
-
- []
-
-[13]
-Overfull \hbox (62.19778pt too wide) in paragraph at lines 557--558
-[]\T1/cmr/bx/n/10.95 Durchführung: \T1/cmr/m/n/10.95 Lö-schen des ge-sam-ten Ve
-r-zeich-nis-baums ei-nes ak-ti-ven Site-Users un-ter \T1/cmtt/m/n/10.95 /home/[
-user]/logs/\T1/cmr/m/n/10.95 . 
- []
-
-[14] [15] [1] [2]
-<include/foto.png, id=346, 2537.48pt x 1690.315pt>
-File: include/foto.png Graphic file (type png)
-<use include/foto.png>
-Package pdftex.def Info: include/foto.png  used on input line 740.
-(pdftex.def)             Requested size: 435.32422pt x 289.98055pt.
-<include/UEFI.png, id=347, 2537.48pt x 1692.3225pt>
-File: include/UEFI.png Graphic file (type png)
-<use include/UEFI.png>
-Package pdftex.def Info: include/UEFI.png  used on input line 747.
-(pdftex.def)             Requested size: 435.32422pt x 290.32494pt.
- [3 <./include/foto.png>]
-<include/LXD-Login.png, id=353, 1370.11874pt x 931.48pt>
-File: include/LXD-Login.png Graphic file (type png)
-<use include/LXD-Login.png>
-Package pdftex.def Info: include/LXD-Login.png  used on input line 754.
-(pdftex.def)             Requested size: 435.32422pt x 295.94771pt.
-<include/hub.png, id=354, 1370.11874pt x 931.48pt>
-File: include/hub.png Graphic file (type png)
-<use include/hub.png>
-Package pdftex.def Info: include/hub.png  used on input line 761.
-(pdftex.def)             Requested size: 435.32422pt x 295.94771pt.
- [4 <./include/UEFI.png> <./include/LXD-Login.png>]
-<include/cloudpanel.png, id=361, 1370.11874pt x 931.48pt>
-File: include/cloudpanel.png Graphic file (type png)
-<use include/cloudpanel.png>
-Package pdftex.def Info: include/cloudpanel.png  used on input line 768.
-(pdftex.def)             Requested size: 435.32422pt x 295.94771pt.
-<include/portainer.png, id=362, 1370.11874pt x 931.48pt>
-File: include/portainer.png Graphic file (type png)
-<use include/portainer.png>
-Package pdftex.def Info: include/portainer.png  used on input line 775.
-(pdftex.def)             Requested size: 435.32422pt x 295.94771pt.
- [5 <./include/hub.png> <./include/cloudpanel.png>] [6 <./include/portainer.png
->] (./include/40_custom.grub.txt) (./include/ttyd-web.txt)
-(./include/cronjob.txt) [7] (./include/nginx-autohealer.sh [8] [9]) [10]
-(./include/sda2-factory-reset.service) (./include/sda2-factory-restore.sh)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-) [11]
-(./include/default-profil.yaml) (./include/networks-macvlan0.yaml)
-(./include/networks-lxdbr0.yaml) (./include/docker-sandbox.yaml [12]) [13]
-(./include/ttyd-docker.txt)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang2.sty
-File: lstlang2.sty 2025/11/14 1.11b listings language file
-)
-(./include/index_a.php [14])
-(/usr/local/texlive/2026/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2025/11/14 1.11b listings language file
-)
-(./include/style_a.css [15] [16]) (./include/web-cli.sandbox.vhost.txt [17])
-(./include/docker-cli.sandbox.vhost.txt) [18] [19] [20]
-(./Projektdokumentation.aux
+l.190 \end{document}
+                     [2{/usr/local/texlive/2026/texmf-dist/fonts/enc/dvips/cm-s
+uper/cm-super-ts1.enc}] (./Kundendokumentation.aux
 Package cleveref Info: loaded `ngerman' language definitions on input line 12.
 )
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-03-20>
  ***********
-Package logreq Info: Writing requests to 'Projektdokumentation.run.xml'.
-\openout1 = `Projektdokumentation.run.xml'.
+Package logreq Info: Writing requests to 'Kundendokumentation.run.xml'.
+\openout1 = `Kundendokumentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45313 strings out of 467349
- 911509 string characters out of 5415635
- 2560853 words of memory out of 5000000
- 72980 multiletter control sequences out of 15000+600000
- 645545 words of font info for 71 fonts, out of 8000000 for 9000
+ 41005 strings out of 467349
+ 834408 string characters out of 5415635
+ 1852312 words of memory out of 5000000
+ 69558 multiletter control sequences out of 15000+600000
+ 642618 words of font info for 67 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
- 108i,20n,108p,11252b,4037s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb>
-</usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></
-usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></us
-r/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/
-local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/lo
-cal/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/loca
-l/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/
-texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/te
-xlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texl
-ive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texliv
-e/2026/texmf-dist/fonts/type1/public/cm-super/sfsl1095.pfb></usr/local/texlive/
-2026/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/20
-26/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb></usr/local/texlive/2026
-/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2026/t
-exmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></usr/local/texlive/2026/tex
-mf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2026/texmf
--dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/2026/texmf-d
-ist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on Projektdokumentation.pdf (37 pages, 13197138 bytes).
+ 108i,19n,108p,11251b,2371s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2026/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb><
+/usr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></u
+sr/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr
+/local/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/l
+ocal/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/loc
+al/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local
+/texlive/2026/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/t
+exlive/2026/texmf-dist/fonts/type1/public/cm-super/sfsl1095.pfb></usr/local/tex
+live/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texli
+ve/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1200.pfb></usr/local/texlive
+/2026/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></usr/local/texlive/2
+026/texmf-dist/fonts/type1/public/cm-super/sftt0900.pfb></usr/local/texlive/202
+6/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on Kundendokumentation.pdf (4 pages, 2961163 bytes).
 PDF statistics:
- 1484 PDF objects out of 1728 (max. 8388607)
- 1380 compressed objects within 14 object streams
- 849 named destinations out of 1000 (max. 500000)
- 376 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 174 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 

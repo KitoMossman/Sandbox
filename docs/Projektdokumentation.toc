@@ -13,45 +13,66 @@
 \contentsline {subsection}{\numberline {5.1}Detailplanung / Konzept}{5}{subsection.5.1}%
 \contentsline {paragraph}{\nonumberline Betriebskonzept und Energiemanagement}{5}{paragraph*.1}%
 \contentsline {subsection}{\numberline {5.2}Umsetzung / Implementierung}{5}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1}Recovery-System und Partitionierung}{5}{subsubsection.5.2.1}%
-\contentsline {paragraph}{\nonumberline Installation und Speicherlayout}{5}{paragraph*.2}%
+\contentsline {subsubsection}{\numberline {5.2.1}Recovery-System und Partitionierung}{6}{subsubsection.5.2.1}%
+\contentsline {paragraph}{\nonumberline Installation und Speicherlayout}{6}{paragraph*.2}%
 \contentsline {paragraph}{\nonumberline Automatisierung des Werksreset}{6}{paragraph*.3}%
-\contentsline {subsubsection}{\numberline {5.2.2}Haupt - System}{6}{subsubsection.5.2.2}%
-\contentsline {paragraph}{\nonumberline Installation des Hauptsystems}{6}{paragraph*.4}%
-\contentsline {paragraph}{\nonumberline Systemkonfiguration und Basis-Setup}{6}{paragraph*.5}%
+\contentsline {subsubsection}{\numberline {5.2.2}Haupt - System}{7}{subsubsection.5.2.2}%
+\contentsline {paragraph}{\nonumberline Installation des Hauptsystems}{7}{paragraph*.4}%
+\contentsline {paragraph}{\nonumberline Systemkonfiguration und Basis-Setup}{7}{paragraph*.5}%
 \contentsline {paragraph}{\nonumberline Integration von Virtualisierung und Containern}{7}{paragraph*.6}%
 \contentsline {paragraph}{\nonumberline Installation von Node.js und CloudPanel}{7}{paragraph*.7}%
-\contentsline {subparagraph}{\nonumberline Laufzeitumgebung Node.js}{7}{subparagraph*.8}%
-\contentsline {subparagraph}{\nonumberline CloudPanel Control Panel und administrativer Abschluss}{7}{subparagraph*.9}%
-\contentsline {paragraph}{\nonumberline Einrichtung von LXD und des LXC-Containers mit der Docker - Engine und Portainer}{8}{paragraph*.10}%
-\contentsline {paragraph}{\nonumberline Healer-Skript / Cron-Jobs}{8}{paragraph*.11}%
-\contentsline {paragraph}{\nonumberline Einrichtung des Dashboards}{8}{paragraph*.12}%
-\contentsline {paragraph}{\nonumberline Einrichtung der Boot-Option für den automatischen Factory-Reset}{8}{paragraph*.13}%
-\contentsline {paragraph}{\nonumberline Konfiguration der OpenSense}{8}{paragraph*.14}%
-\contentsline {paragraph}{\nonumberline Erstellung des Factory-Images}{8}{paragraph*.15}%
-\contentsline {subsection}{\numberline {5.3}Qualitätssicherung (Testfälle / Abnahme)}{8}{subsection.5.3}%
-\contentsline {section}{\numberline {6}Projektabschluss}{9}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Soll - Ist - Vergleich}{9}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Fazit / Zusammenfassung}{9}{subsection.6.2}%
+\contentsline {subparagraph}{\nonumberline Laufzeitumgebung Node.js}{8}{subparagraph*.8}%
+\contentsline {subparagraph}{\nonumberline CloudPanel Control Panel und administrativer Abschluss}{8}{subparagraph*.9}%
+\contentsline {paragraph}{\nonumberline Einrichtung von LXD und des LXC-Containers mit der Docker-Engine und Portainer}{8}{paragraph*.10}%
+\contentsline {subparagraph}{\nonumberline Initialisierung und Netzwerk-Konfiguration}{9}{subparagraph*.11}%
+\contentsline {subparagraph}{\nonumberline Container-Bereitstellung und Systemhärtung}{9}{subparagraph*.12}%
+\contentsline {subparagraph}{\nonumberline Deployment von Docker und Portainer}{9}{subparagraph*.13}%
+\contentsline {subparagraph}{\nonumberline Erstellung des LXC-Snapshots für das Dashboard-Recovery}{10}{subparagraph*.14}%
+\contentsline {paragraph}{\nonumberline Healer-Skript und Automatisierung via Cron-Jobs}{10}{paragraph*.15}%
+\contentsline {subparagraph}{\nonumberline Implementierung des Healer-Skripts}{10}{subparagraph*.16}%
+\contentsline {subparagraph}{\nonumberline Zeitsteuerung durch Cron-Jobs}{11}{subparagraph*.17}%
+\contentsline {paragraph}{\nonumberline Einrichtung des Dashboards}{11}{paragraph*.18}%
+\contentsline {subparagraph}{\nonumberline Konfiguration des vHosts und der Applikationslogik}{11}{subparagraph*.19}%
+\contentsline {subparagraph}{\nonumberline Implementierung der Reverse-Proxys}{11}{subparagraph*.20}%
+\contentsline {paragraph}{\nonumberline Einrichtung der Boot-Option für den automatischen Factory-Reset}{12}{paragraph*.21}%
+\contentsline {subparagraph}{\nonumberline Konfiguration des Custom-Boot-Eintrags}{12}{subparagraph*.22}%
+\contentsline {paragraph}{\nonumberline Netzwerkintegration und DNS-Konfiguration in OPNsense}{12}{paragraph*.23}%
+\contentsline {subparagraph}{\nonumberline Statische DHCP-Zuweisung und Layer-2-Mapping}{12}{subparagraph*.24}%
+\contentsline {subparagraph}{\nonumberline DNS-Konfiguration und Domain-Mapping}{12}{subparagraph*.25}%
+\contentsline {paragraph}{\nonumberline Erstellung des System-Abbilds (Clean-State)}{13}{paragraph*.26}%
+\contentsline {subparagraph}{\nonumberline Einleitung des Sicherungsvorgangs}{13}{subparagraph*.27}%
+\contentsline {subparagraph}{\nonumberline Image-Erstellung via Partclone}{13}{subparagraph*.28}%
+\contentsline {subparagraph}{\nonumberline Abschluss und Verifikation}{13}{subparagraph*.29}%
+\contentsline {subsection}{\numberline {5.3}Qualitätssicherung (Testfälle / Abnahme)}{14}{subsection.5.3}%
+\contentsline {paragraph}{\nonumberline Test 1 – Rekonstruktion durch die Superset-Methode}{14}{paragraph*.30}%
+\contentsline {paragraph}{\nonumberline Test 2 – Isolation und automatische Reintegration (.broken-Logik)}{14}{paragraph*.31}%
+\contentsline {paragraph}{\nonumberline Abnahme}{14}{paragraph*.32}%
+\contentsline {section}{\numberline {6}Projektabschluss}{15}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Soll-Ist-Vergleich}{15}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Zusammenfassung, Fazit und Ausblick}{15}{subsection.6.2}%
+\contentsline {paragraph}{\nonumberline Zusammenfassung}{15}{paragraph*.33}%
+\contentsline {paragraph}{\nonumberline Fazit}{15}{paragraph*.34}%
+\contentsline {paragraph}{\nonumberline Ausblick}{15}{paragraph*.35}%
 \contentsline {section}{\numberline {A}Anlagen}{I}{appendix.A}%
 \contentsline {section}{\numberline {B}Anlagen - Diagramme und Screenshots}{II}{appendix.B}%
 \contentsline {subsection}{\numberline {B.1}Projektphasen und Zeitplanung (Wasserfallmodell)}{II}{subsection.B.1}%
 \contentsline {subsection}{\numberline {B.2}Tabellen}{III}{subsection.B.2}%
 \contentsline {subsection}{\numberline {B.3}Bildschirmaufnahmen / Fotos}{III}{subsection.B.3}%
-\contentsline {section}{\numberline {C}Anlagen - Quelltexte}{V}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Beispiel-Custom Grub-Konfiguration (40\_custom)}{V}{subsection.C.1}%
-\contentsline {subsection}{\numberline {C.2}Konfiguration von ttyd des Hauptsystems}{V}{subsection.C.2}%
-\contentsline {subsection}{\numberline {C.3}Cronjob des Root-Nutzers}{V}{subsection.C.3}%
-\contentsline {subsection}{\numberline {C.4}Auto-Healer-Script (nginx-autohealer.sh)}{VI}{subsection.C.4}%
-\contentsline {subsection}{\numberline {C.5}Service-Script für den Factory-Reset (sda2-factory-reset.service)}{IX}{subsection.C.5}%
-\contentsline {subsection}{\numberline {C.6}Shell-Script für den Factory-Reset}{IX}{subsection.C.6}%
-\contentsline {subsection}{\numberline {C.7}Standard-Konfiguration der LXC-Container (default-profil.yaml)}{X}{subsection.C.7}%
-\contentsline {subsection}{\numberline {C.8}Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0).yaml)}{X}{subsection.C.8}%
-\contentsline {subsection}{\numberline {C.9}Konfigurationsdatei des Docker-Containers (docker-sandbox.yaml)}{X}{subsection.C.9}%
-\contentsline {subsection}{\numberline {C.10}Konfiguration von ttyd des LXC-Containers}{XI}{subsection.C.10}%
-\contentsline {subsection}{\numberline {C.11}Ausschnitt der PHP-Datei des Dashboards (index.php)}{XII}{subsection.C.11}%
-\contentsline {subsection}{\numberline {C.12}Ausschnitt der Design-Anpassungen (CSS)}{XIII}{subsection.C.12}%
-\contentsline {subsection}{\numberline {C.13}vHost des Reverse-Proxies Hauptsystem-TTYd}{XV}{subsection.C.13}%
-\contentsline {subsection}{\numberline {C.14}vHost des Reverse-Proxies Container-TTYd}{XVI}{subsection.C.14}%
-\contentsline {section}{\numberline {D}Anlagen - Hostnamen, IP-Adressen, Initial-Passwörter}{XVII}{appendix.D}%
-\contentsline {section}{\nonumberline Quellenverzeichnis}{XVIII}{section*.21}%
+\contentsline {section}{\numberline {C}Anlagen - Quelltexte}{VII}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Beispiel-Custom Grub-Konfiguration (40\_custom)}{VII}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Konfiguration von ttyd des Hauptsystems}{VII}{subsection.C.2}%
+\contentsline {subsection}{\numberline {C.3}Cronjob des Root-Nutzers}{VII}{subsection.C.3}%
+\contentsline {subsection}{\numberline {C.4}Auto-Healer-Script (nginx-autohealer)}{VIII}{subsection.C.4}%
+\contentsline {subsection}{\numberline {C.5}Service-Script für den Factory-Reset (factory-reset.service)}{XI}{subsection.C.5}%
+\contentsline {subsection}{\numberline {C.6}Shell-Script für den Factory-Reset (factory-restore.sh)}{XI}{subsection.C.6}%
+\contentsline {subsection}{\numberline {C.7}Standard-Konfiguration der LXC-Container (default-profil.yaml)}{XII}{subsection.C.7}%
+\contentsline {subsection}{\numberline {C.8}Konfigurationsdatei der Netzwerkschnittstelle MACVLAN (networks-macvlan0.yaml)}{XII}{subsection.C.8}%
+\contentsline {subsection}{\numberline {C.9}Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0.yaml)}{XII}{subsection.C.9}%
+\contentsline {subsection}{\numberline {C.10}Konfigurationsdatei des Docker-Containers (docker-sandbox.yaml)}{XII}{subsection.C.10}%
+\contentsline {subsection}{\numberline {C.11}Konfiguration von ttyd des LXC-Containers}{XIV}{subsection.C.11}%
+\contentsline {subsection}{\numberline {C.12}Ausschnitt der PHP-Datei des Dashboards (index.php)}{XIV}{subsection.C.12}%
+\contentsline {subsection}{\numberline {C.13}Ausschnitt der Design-Anpassungen (style.css)}{XV}{subsection.C.13}%
+\contentsline {subsection}{\numberline {C.14}vHost des Reverse-Proxies Hauptsystem-TTYd}{XVII}{subsection.C.14}%
+\contentsline {subsection}{\numberline {C.15}vHost des Reverse-Proxies Container-TTYd}{XVIII}{subsection.C.15}%
+\contentsline {section}{\numberline {D}Anlagen - Hostnamen, IP-Adressen, Initial-Passwörter}{XIX}{appendix.D}%
+\contentsline {section}{\nonumberline Quellenverzeichnis}{XX}{section*.45}%

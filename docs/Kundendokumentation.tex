@@ -1,0 +1,190 @@
+\documentclass[11pt,
+a4paper,
+numbers=nonperiod,
+footsepline,
+oneside,
+numbers=noenddot,
+bibliography=totoc
+]{scrartcl}
+\usepackage{scrlayer-scrpage}
+\usepackage{caption}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{pgfgantt}
+\usepackage[left=2cm, right=2cm, top=1.50cm, bottom=2.60cm]{geometry}
+\addtokomafont{sectioning}{\sffamily}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@maybeautodot}{.}{}{}{}
+\makeatother
+\usepackage[ngerman]{varioref} % Muss vor hyperref/cleveref geladen werden
+\usepackage[ngerman]{cleveref}
+
+% Literaturverzeichnis-Paket laden
+\usepackage[
+backend=biber,      % Empfohlener Prozessor
+style=numeric,      % Nummerierung [1], [2]
+sorting=none,       % Erscheinen in der Reihenfolge der Nennung im Text
+autocite=plain
+]{biblatex}
+
+% Die Datenbank-Datei einbinden
+\addbibresource{include/quellen.bib}
+
+% Verhindert, dass URLs über den Rand ragen
+\usepackage{xurl} 
+\hypersetup{breaklinks=true}
+\usepackage{etoc}
+\usepackage{float}
+
+%Fusszeilen Einstellungen
+\newcommand{\fusszeilentitel}{Ingo Weber} % Hier kommt Ihr Name rein
+\clearpairofpagestyles
+\refoot{\raisebox{-1mm}{Seite \pagemark}}
+\lefoot{\raisebox{-1mm}{\fusszeilentitel}}
+
+\rofoot{\raisebox{-1mm}{Seite \pagemark}}
+\lofoot{\raisebox{-1mm}{\fusszeilentitel}}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Globaler Stil für alle Listings
+\lstset{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 % Zeilenumbruch bei zu langen Zeilen
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    % Zeilennummern links
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	literate=
+	{ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1 {ß}{{\ss}}1
+}
+
+\begin{document}
+	\setlength{\parindent}{0px}
+	\pagestyle{empty}
+	
+	% --- DECKBLATT (Übernommen aus Projektdokumentation) ---
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		\begin{flushleft}
+			\large{BFW-Dresden gGmbH
+				\hfill \today\\
+				Hellerhofstraße 35\\
+				01129 Dresden}
+		\end{flushleft}
+		
+		\includegraphics[width=0.8\textwidth]{include/logo.png} 
+		
+		\vspace{1.5cm}
+		
+		{\huge\bfseries Kundendokumentation}\\[0.5cm]
+		{\huge Bedienungsanleitung für Entwickler: Sandbox-Infrastruktur}\\[2cm]
+		{\large Erstellt für die Maki GmbH}
+		
+		\vfill
+		
+		{\large \textbf{Ingo Weber}\\
+			Aubildungsberuf: IT-Systemelektroniker}\\[0.5cm]
+	\end{titlepage}
+	
+\newpage				%mit diesen Befehl wird auf einer neuen Seite weiter geschrieben
+\tableofcontents		%erstellt das Inhaltsverzeichnis
+\newpage				%mit diesen Befehl wird auf einer neuen Seite weiter geschrieben
+\pagestyle{scrheadings}
+\setcounter{page}{1}	%mit diesem Befehl wird gesagt das ab hier erst mit der Seitenzahl angefangen wird
+\newpage
+	
+	% --- INHALT ---
+	
+	\section{Einstieg über den Infrastructure Hub}
+	Der zentrale Einstiegspunkt für alle Entwicklungsarbeiten ist der \textbf{Infrastructure Hub} unter:
+	\begin{center}
+		\url{https://sandbox.ma.ki/}
+	\end{center}
+	
+	Dieses Dashboard aggregiert alle relevanten Dienste. Von hier aus haben Sie direkten Zugriff auf die Verwaltungsoberflächen und Terminals, ohne manuell SSH-Verbindungen konfigurieren zu müssen.
+	
+	\section{Szenario A: Deployment einer PHP-Anwendung mit SQL-Datenbank}
+	Dieses Verfahren nutzt das integrierte \textbf{CloudPanel} zur Bereitstellung klassischer Web-Stacks.
+	
+	\subsection{Schritt 1: Website-Container erstellen}
+	\begin{enumerate}
+		\item Öffnen Sie die \textbf{CloudPanel UI} über den Link im Hub.
+		\item Wählen Sie im Menü \textbf{Sites} $\rightarrow$ \textbf{Add Site} $\rightarrow$ \textbf{Create a PHP Site}.
+		\item Geben Sie die gewünschte Domain (z.\,B. \texttt{projekt.sandbox.ma.ki}) und die benötigte PHP-Version an.
+	\end{enumerate}
+	
+	\subsection{Schritt 2: Datenbank anlegen}
+	\begin{enumerate}
+		\item Navigieren Sie innerhalb der Site-Verwaltung zu \textbf{Databases}.
+		\item Erstellen Sie eine neue Datenbank. Notieren Sie sich den Datenbanknamen, den User und das generierte Passwort für Ihre \texttt{.env}- oder Konfigurationsdatei.
+	\end{enumerate}
+	
+	\subsection{Schritt 3: Deployment der Dateien}
+	Sie können Ihre Dateien entweder über den integrierten \textbf{File Manager} hochladen oder den im Hub verlinkten \textbf{Host-Terminal} nutzen. Das Zielverzeichnis lautet:
+	\texttt{/htdocs/[ihre-domain]/}
+	
+	\newpage
+	\section{Szenario B: Deployment einer Docker-App via Compose YAML}
+	Für containerisierte Microservices nutzen Sie die \textbf{Portainer UI}, die innerhalb der isolierten Sandbox-Umgebung operiert.
+	
+	\subsection{Schritt 1: Stack-Definition}
+	\begin{enumerate}
+		\item Öffnen Sie \textbf{Portainer} über den Infrastructure Hub.
+		\item Wählen Sie unter \textbf{Stacks} die Option \textbf{+ Add stack}.
+		\item Geben Sie Ihre Docker-Compose-Konfiguration im Web-Editor ein.
+	\end{enumerate}
+	
+	\begin{lstlisting}[language=bash, caption=Beispiel einer docker-compose.yaml]
+		services:
+		web-app:
+		image: nginx:latest
+		ports:
+		- "8080:80"
+		restart: always
+	\end{lstlisting}
+	
+	\subsection{Schritt 2: Deployment und Zugriff}
+	Klicken Sie auf \textbf{Deploy the stack}. Ihre Anwendung ist anschließend über die IP der Docker-Sandbox (\texttt{192.168.100.22}) und den von Ihnen definierten Port erreichbar.
+	
+	\section{Fehlerbehebung und Selbstheilung}
+	Die Infrastruktur ist nach dem \textbf{Trampolin-Prinzip} aufgebaut, um Ausfälle durch Fehlkonfigurationen zu minimieren:
+	
+	\begin{itemize}
+		\item \textbf{Automatisierte Isolation:} Erkennt das System einen Syntaxfehler in einer vHost-Konfiguration (z.\,B. durch fehlerhaftes Copy-Paste), wird dieser Dienst isoliert (\texttt{.broken}), während alle anderen Projekte online bleiben.
+		\item \textbf{LXC-Container-Reset:} Im Infrastructure Hub steht unter dem Reiter „Recovery“ eine Schnell-Wiederherstellung zur Verfügung. Diese nutzt den hinterlegten Snapshot \texttt{clean-state}, um nur die Docker-Umgebung zurückzusetzen, ohne den Host neu zu starten.
+		\item \textbf{Factory-Reset:} Sollte die Umgebung instabil werden, kann man im Infrastructure Hub über den Reiter "`Recovery"` einen automatisierten Werksreset auslösen. Innerhalb weniger Minuten wird der exakte Auslieferungszustand ("`Clean-State"') wiederhergestellt.
+	\end{itemize}
+	
+\end{document}

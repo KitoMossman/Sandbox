@@ -12,8 +12,8 @@ devices:
     pci: '0000:00:02.0'
     type: gpu
 config:
-  limits.cpu: '4'
-  limits.memory: 6GiB
+  limits.cpu: '2'
+  limits.memory: 4GiB
   security.nesting: 'true'
   boot.autostart: 'true'
   boot.autostart.delay: '10'

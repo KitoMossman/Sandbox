@@ -1,0 +1,9 @@
+access_entitlements:
+- can_edit
+- can_delete
+project: default
+name: macvlan0
+description: ''
+type: macvlan
+config:
+parent: enp5s0

@@ -111,7 +111,7 @@ autocite=plain
 		
 		{\huge\bfseries Projekt - Dokumentation}\\[0.5cm]
 		{\huge Sandbox für Docker- und Web-Anwendungen}\\[2cm]
-		{\large Projektzeitraum: 13.04.2026 - 17.04.2026}
+		{\large Projektzeitraum: 13.04.2026 - 01.05.2026}
 		
 		\vfill % Schiebt den Rest nach unten
 		
@@ -182,17 +182,12 @@ Ziel des Projekts ist die Implementierung eines fehlertoleranten, sich selbst ko
 \bigskip
 \subsection{Projektstrukturplan}
 
-Der Projektstrukturplan unterteilt die Realisierung des Infrastructure Hubs in fünf aufeinanderfolgende Kernphasen, welche die asymmetrische Systemarchitektur von der ersten Hardware-Analyse bis zur finalen System-Sterilisierung abbilden.
-\bigskip
-Die erste Phase, \textbf{Analyse und Konzeption}, befasste sich primär mit der Evaluation der physischen Hardware-Limits des Intel Core i5-3450 und der daraus resultierenden Entscheidung für einen hybriden Architekturansatz. Hierbei wurden das Partitionsschema für den Host und das Recovery-System (sda3/sda2) definiert sowie die Netzwerkplanung vorgenommen, um mittels eines MACVLAN-Bypasses die Erreichbarkeit der isolierten Dienste für das Monitoring sicherzustellen.
-\bigskip
-In der zweiten Phase, dem \textbf{Infrastruktur-Setup}, erfolgte die Grundinstallation von Ubuntu 24.04 LTS auf der Hauptpartition. Um die I/O-Performance und den RAM-Verbrauch zu optimieren, wurde der primäre Service-Stack bestehend aus CloudPanel, Nginx und MariaDB nativ auf dem Host-System implementiert. Parallel dazu wurde der Virtualisierungslayer via LXD konfiguriert und die isolierte \texttt{docker-sandbox} zur Kapselung potenziell instabiler Drittanwendungen eingerichtet. Den Abschluss dieser Phase bildete die Installation des minimalen Zweit-OS auf der Recovery-Partition sda2.
-\bigskip
-Die dritte Phase, die \textbf{Entwicklung des Immunsystems}, stellt den technologischen Kern des Projekts dar. Hierbei wurde das autonome Bash-Skript \texttt{nginx-healer.sh} programmiert, welches über eine Closed-Loop-Logik verfügt, um syntaktische Fehler in vHost-Konfigurationen zu isolieren und gelöschte Systempfade durch eine Superset-Regeneration wiederherzustellen. Die Integration in das Sicherheitskonzept erfolgte durch präzise definierte Ausnahmen in der \texttt{/etc/sudoers} sowie die Automatisierung über Systemd-Overrides und Cronjobs.
-\bigskip
-In der vierten Phase wurde das \textbf{Dashboard und die Telemetrie-Einheit} realisiert. Das Frontend wurde mittels PHP und TailwindCSS entwickelt, während das Backend über eine asynchrone AJAX-Schnittstelle Echtzeit-Metriken zu CPU-Last, RAM-Belegung und Prozessortemperaturen bereitstellt. Zudem wurde die grafische Benutzeroberfläche für die Recovery-Trigger implementiert, welche die Durchführung von Soft- und Hard-Resets direkt über das Web-UI ermöglicht.
-\bigskip
-Die finale fünfte Phase umfasste die \textbf{Validierung und den Projektabschluss}. Mittels Greybox-Testing (Chaos-Monkey-Prinzip) wurden kritische Ausfallszenarien simuliert, um die Resilienz des Auto-Healers und der Recovery-Pfade unter Beweis zu stellen. Nach der Bereinigung aller Systemprotokolle und der Behebung letzter Boot-Fehlermeldungen wurde das sterile \texttt{clean-state} Image via \texttt{Partclone} auf sda2 gesichert. Den formalen Abschluss bildete die Erstellung der technischen Dokumentation sowie der Kundendokumentation für Webentwickler.
+Der Projektstrukturplan unterteilt die Realisierung des Infrastructure Hubs in fünf aufeinanderfolgende Kernphasen, welche die asymmetrische Systemarchitektur von der ersten Hardware-Analyse bis zur finalen System-Sterilisierung abbilden.\\\\
+Die \emph{erste Phase}, \textbf{Analyse und Konzeption}, befasste sich primär mit der Evaluation der physischen Hardware-Limits des Intel Core i5-3450 und der daraus resultierenden Entscheidung für einen hybriden Architekturansatz. Hierbei wurden das Partitionsschema für den Host und das Recovery-System (sda3/sda2) definiert sowie die Netzwerkplanung vorgenommen, um mittels eines MACVLAN-Bypasses die Erreichbarkeit der isolierten Dienste für das Monitoring sicherzustellen.\\\\
+In der \emph{zweiten Phase}, dem \textbf{Infrastruktur-Setup}, erfolgte die Grundinstallation von Ubuntu 24.04 LTS auf der Hauptpartition. Um die I/O-Performance und den RAM-Verbrauch zu optimieren, wurde der primäre Service-Stack bestehend aus CloudPanel, Nginx und MySQL nativ auf dem Host-System implementiert. Parallel dazu wurde der Virtualisierungslayer via LXD konfiguriert und die isolierte \texttt{docker-sandbox} zur Kapselung potenziell instabiler Drittanwendungen eingerichtet. Den Abschluss dieser Phase bildete die Installation des minimalen Zweit-OS auf der Recovery-Partition sda2.\\\\
+Die \emph{dritte Phase}, die \textbf{Entwicklung des Immunsystems}, stellt den technologischen Kern des Projekts dar. Hierbei wurde das autonome Bash-Skript \texttt{nginx-healer.sh} programmiert, welches über eine Closed-Loop-Logik verfügt, um syntaktische Fehler in vHost-Konfigurationen zu isolieren und gelöschte Systempfade durch eine Superset-Regeneration wiederherzustellen. Die Integration in das Sicherheitskonzept erfolgte durch präzise definierte Ausnahmen in der \texttt{/etc/sudoers} sowie die Automatisierung über Systemd-Overrides und Cronjobs.\\\\
+In der \emph{vierten Phase} wurde das \textbf{Dashboard und die Telemetrie-Einheit} realisiert. Das Frontend wurde mittels PHP und TailwindCSS entwickelt, während das Backend über eine asynchrone AJAX-Schnittstelle Echtzeit-Metriken zu CPU-Last, RAM-Belegung und Prozessortemperaturen bereitstellt. Zudem wurde die grafische Benutzeroberfläche für die Recovery-Trigger implementiert, welche die Durchführung von Soft- und Hard-Resets direkt über das Web-UI ermöglicht.\\\\
+Die finale \emph{fünfte Phase} umfasste die \textbf{Validierung und den Projektabschluss}. Mittels Greybox-Testing (Chaos-Monkey-Prinzip) wurden kritische Ausfallszenarien simuliert, um die Resilienz des Auto-Healers und der Recovery-Pfade unter Beweis zu stellen. Nach der Bereinigung aller Systemprotokolle und der Behebung letzter Boot-Fehlermeldungen wurde das sterile \texttt{clean-state} Image via \texttt{Partclone} auf sda2 gesichert. Den formalen Abschluss bildete die Erstellung der technischen Dokumentation sowie der Kundendokumentation für Webentwickler.
 \newpage
 
 \subsection{Zeit- und Ressourcenplanung}
@@ -237,9 +232,9 @@ Die finale fünfte Phase umfasste die \textbf{Validierung und den Projektabschlu
 \bigskip
 \subsection{Detailplanung / Konzept}
 
-Hardware siehe Tabelle \ref{hardware} auf Seite \pageref{hardware}.
+Hardware siehe Tabelle \ref{hardware} auf Seite \pageref{hardware} und Abbildung \ref{fig:foto} auf Seite \pageref{fig:foto}.
 
-\paragraph{Betriebskonzept und Energiemanagement}
+\paragraph{Betriebskonzept und Energiemanagement} \label{planung}
 Ein wesentlicher Aspekt des stabilen Dauerbetriebs am Einsatzort ist die Koordination mit der lokalen Stromversorgung. Da im Lernort zum Betriebsende die Stromzufuhr zentral deaktiviert wird, wurde ein zweistufiges Verfahren implementiert:
 
 \begin{itemize}
@@ -253,13 +248,13 @@ Die Initialisierung des Projekts begann mit der Vorbereitung des Installationsme
 
 \begin{enumerate}
 	\item \textbf{Bereitstellung des Installationsmediums:} 
-	Zunächst wurde das offizielle ISO-Abbild von Ubuntu Server in der aktuellsten Version bezogen \cite{ubuntu_server}. Zur Erstellung des bootfähigen Mediums wurde das Open-Source-Tool \textit{Ventoy} verwendet. Im Gegensatz zu herkömmlichen Imaging-Verfahren erlaubt Ventoy das direkte Starten von ISO-Dateien durch einfaches Kopieren auf den Datenträger, was eine flexible Handhabung verschiedener Installationsmedien ermöglicht.
+	Zunächst wurde das offizielle ISO-Abbild von Ubuntu Server in der aktuellsten Version über die Webseite \emph{https://ubuntu.com/download/server} \cite{ubuntu_server} bezogen. Zur Erstellung des bootfähigen Mediums wurde das Open-Source-Tool \textit{Ventoy} verwendet. Im Gegensatz zu herkömmlichen Imaging-Verfahren erlaubt Ventoy das direkte Starten von ISO-Dateien durch einfaches Kopieren auf den Datenträger, was eine flexible Handhabung verschiedener Installationsmedien ermöglicht.
 	
 	\item \textbf{Hardware-Konfiguration (UEFI/BIOS):} 
-	Als Zielhardware dient ein ThinClient, dessen Firmware-Einstellungen (BIOS/UEFI) für den Serverbetrieb optimiert werden mussten. Eine zentrale Anforderung für den Headless-Betrieb ist die Hochverfügbarkeit nach einem Stromausfall. Daher wurde im Power-Management des Geräts die Option \textit{„Restore on AC/Power Loss“} auf \textit{„Power On“} gestellt. Dies stellt sicher, dass das System autonom startet, sobald die Stromversorgung wiederhergestellt ist, ohne dass ein manueller Eingriff erforderlich ist.
+	Als Zielhardware dient ein ThinClient, dessen Firmware-Einstellungen (BIOS/UEFI) für den Serverbetrieb optimiert werden mussten. Eine zentrale Anforderung für den Headless-Betrieb ist die Hochverfügbarkeit nach einem Stromausfall. Daher wurde im Power-Management des Geräts die Option \textit{„Restore on AC/Power Loss“} auf \textit{„Power On“} gestellt. Dies stellt sicher, dass das System autonom startet, sobald die Stromversorgung wiederhergestellt ist, ohne dass ein manueller Eingriff erforderlich ist. (siehe Abbildung \ref{fig:uefi})
 	
 \end{enumerate}
-
+\newpage
 \subsubsection{Recovery-System und Partitionierung}
 
 Um eine hohe Systemstabilität sowie eine einfache Wiederherstellung im Fehlerfall zu gewährleisten, wurde ein dediziertes Recovery-System implementiert. Die Installation basiert auf der Minimal-Variante von Ubuntu Server, um den Footprint und die potenzielle Angriffsfläche des Wartungssystems gering zu halten.
@@ -299,7 +294,7 @@ Das ausführende Logik-Skript wurde unter \texttt{/usr/local/bin/factory-restore
 \begin{lstlisting}[language=bash]
 	sudo chmod +x /usr/local/bin/factory-restore.sh
 \end{lstlisting}
-
+\newpage
 \subsubsection{Haupt - System}
 
 \paragraph{Installation des Hauptsystems}
@@ -308,7 +303,7 @@ Nachdem die grundlegende Recovery-Infrastruktur auf der Partition \texttt{sda2} 
 
 \paragraph{Systemkonfiguration und Basis-Setup}
 
-Die Installation des Hauptsystems basiert ebenfalls auf Ubuntu Server, wurde jedoch im Gegensatz zum Recovery-System als Standard-Installation ("Normal-Installation") durchgeführt. Dies stellt sicher, dass alle gängigen Bibliotheken und Werkzeuge für den produktiven Betrieb bereits vorinstalliert sind.\\
+Die Installation des Hauptsystems basiert ebenfalls auf Ubuntu Server, wurde jedoch im Gegensatz zum Recovery-System als Standard-Installation (Normal-Installation) durchgeführt. Dies stellt sicher, dass alle gängigen Bibliotheken und Werkzeuge für den produktiven Betrieb bereits vorinstalliert sind.\\
 
 Die Konfiguration während des Setups wurde nach folgenden Parametern vorgenommen:\\
 
@@ -340,11 +335,11 @@ Weiter wird dann die Datei \emph{/etc/default/ttyd} wie in Anhang \ref{sda3:ttyd
 \paragraph{Installation von Node.js und CloudPanel}
 
 Nach der Grundkonfiguration des Hauptsystems erfolgt die Einrichtung der Laufzeitumgebungen und des Hosting-Control-Panels. Ein besonderer Fokus liegt hierbei auf der Kompatibilität der Softwarekomponenten und der initialen Absicherung des Systems.
-
+\newpage
 \subparagraph{Laufzeitumgebung Node.js}
 Für die Ausführung moderner Web-Applikationen wird Node.js benötigt. Da CloudPanel aktuell die Versionen 20 und 22 unterstützt, Version 24 jedoch noch nicht freigegeben ist, werden gezielt diese beiden LTS-Versionen (Long Term Support) installiert. Um ein flexibles Management zwischen diesen Versionen zu ermöglichen, wird der \textit{Fast Node Manager} (fnm) eingesetzt. Dieser erlaubt einen schnellen Wechsel der aktiven Version und eine saubere Trennung der Binaries.\\
 
-Die Installation erfolgt über die offiziellen Quellen mittels der folgenden Befehlskette, die auf der Webseite: \emph{https://nodejs.org/en/download} zu finden ist.
+Die Installation erfolgt über die offiziellen Quellen mittels der folgenden Befehlskette, die auf der Webseite: \emph{https://nodejs.org/en/download} \cite{nodejs_install} zu finden ist.
 
 \begin{lstlisting}[language=bash]
 	# Installation des Fast Node Managers (fnm)
@@ -356,7 +351,7 @@ Die Installation erfolgt über die offiziellen Quellen mittels der folgenden Bef
 \end{lstlisting}
 
 \subparagraph{CloudPanel Control Panel und administrativer Abschluss}
-Als zentrale Verwaltungsoberfläche für den Serverbetrieb wird \textbf{CloudPanel} eingesetzt. Die Wahl fiel auf die Community Edition (CE) in Kombination mit einer leistungsstarken MySQL 8.0 Datenbank-Engine. Der Installationsprozess wird über ein offizielles Skript automatisiert, der auf der Webseite: \emph{https://www.cloudpanel.io/docs/v2/getting-started/other/} zu finden ist, wobei zur Sicherstellung der Datenintegrität vor der Ausführung eine Verifizierung des Skript-Hashwerts erfolgt.\\
+Als zentrale Verwaltungsoberfläche für den Serverbetrieb wird \textbf{CloudPanel} eingesetzt. Die Wahl fiel auf die Community Edition (CE) in Kombination mit einer leistungsstarken MySQL 8.0 Datenbank-Engine. Der Installationsprozess wird über ein offizielles Skript automatisiert, der auf der Webseite: \emph{https://www.cloudpanel.io/docs/v2/getting-started/other/} \cite{cloudpanel} zu finden ist, wobei zur Sicherstellung der Datenintegrität vor der Ausführung eine Verifizierung des Skript-Hashwerts erfolgt.\\
 
 Der Installationsvorgang wird mit folgendem Befehl initiiert:
 
@@ -370,27 +365,251 @@ Nachdem das Skript die Installation der Pakete und der Datenbank abgeschlossen h
 
 Erst mit der Erstellung dieses Admin-Users ist die Konfiguration der "`Sandbox"'-Umgebung abgeschlossen und das System befindet sich in einem definierten Zustand, der als Basis für das finale Deployment-Image dient.
 
-\paragraph{Einrichtung von LXD und des LXC-Containers mit der Docker - Engine und Portainer}
+\paragraph{Einrichtung von LXD und des LXC-Containers mit der Docker-Engine und Portainer}
 
-\paragraph{Healer-Skript / Cron-Jobs}
+Nachdem das Grundsystem und die notwendigen Web-Services konfiguriert wurden, folgt die Einrichtung der Virtualisierungsebene. Dieser Schritt ermöglicht die Kapselung der Docker-Infrastruktur innerhalb eines verwalteten LXC-Systems, um eine saubere Trennung von Host- und Applikationsebene zu gewährleisten. (Web-UI LXD siehe Abbildung \ref{fig:lxd})
+\newpage
+\subparagraph{Initialisierung und Netzwerk-Konfiguration}
+Die Konfiguration beginnt mit der Initialisierung von LXD mittels \texttt{lxd init}. Hierbei wird unter anderem das grafische Webinterface aktiviert. Da der Standard-Port von LXD (8443) bereits durch die CloudPanel-Instanz belegt ist, wurde das Webinterface gezielt auf den \textbf{Port 9443} konfiguriert, um Ressourcenkonflikte zu vermeiden.\\
+
+Ein wesentlicher Bestandteil der Container-Kommunikation ist die Bereitstellung spezifischer Netzwerkschnittstellen. Zunächst wird eine \textbf{MACVLAN}-Schnittstelle gemäß der Konfiguration in \ref{macvlan-yaml} angelegt, um dem Container eine direkte Präsenz im physischen Netzwerk zu ermöglichen. Ergänzend dazu wird eine Netzwerkbrücke nach den Vorgaben in \ref{netbr-yaml} implementiert.\\
+
+Um eine konsistente Umgebung für alle zukünftigen Instanzen zu schaffen, wird das \texttt{default}-Profil angepasst (siehe \ref{default-profil-yaml}). In diesem Profil werden nicht nur die Netzwerkschnittstellen festgeschrieben, sondern auch der Zugriff auf den integrierten Grafikchip des Hosts ermöglicht. Zudem erfolgt eine strikte Ressourcenkontingentierung, um die Systemstabilität zu gewährleisten: Dem Profil werden fest zwei CPU-Kerne sowie 4 GB Arbeitsspeicher zugewiesen.
+
+\subparagraph{Container-Bereitstellung und Systemhärtung}
+Auf Basis der Vorlage \ref{docker-yaml} wird anschließend ein neuer LXC-Container mit dem Namen \texttt{docker-sandbox} erstellt. Als Betriebssystem dient ein aktuelles \textbf{Ubuntu 24.04 LTS} Image. Ein wesentlicher Aspekt der Netzwerkkonfiguration ist die Zuweisung einer statischen IP-Adresse für die interne Kommunikation über die Netzwerkbrücke. Hierbei wird die Adresse \texttt{192.168.212.2/24} fest vergeben, um eine konsistente Erreichbarkeit der Dienste innerhalb der Laborumgebung sicherzustellen.\\
+
+Nach dem Start des Containers erfolgt der Zugriff über das integrierte Terminal. Da Operationen innerhalb des LXC-Containers standardmäßig mit Root-Privilegien ausgeführt werden, ist die Nutzung von \texttt{sudo} nicht erforderlich. Zur Sicherstellung der Aktualität und Sicherheit wird das System unmittelbar aktualisiert:
+
+\begin{lstlisting}[language=bash]
+	apt update && apt upgrade -y
+\end{lstlisting}
+\bigskip
+Im Rahmen der Ersteinrichtung wird zudem über \texttt{passwd} ein sicheres Passwort für den Root-Benutzer vergeben. Um den Fernzugriff via Web-Terminal zu ermöglichen, wird das Tool \textbf{ttyd} installiert. Nach der Anpassung der Konfigurationsdatei (siehe \ref{sda3:ttyd-docker}) wird der Dienst dauerhaft im System verankert:
+
+\begin{lstlisting}[language=bash]
+	apt install ttyd -y
+	systemctl enable ttyd
+\end{lstlisting}
+
+\subparagraph{Deployment von Docker und Portainer}
+Innerhalb des vorbereiteten LXC-Containers wird nun die \textbf{Docker-Engine} gemäß der offiziellen Dokumentation \cite{docker_install} implementiert. Hierzu wird das automatisierte Installationsskript von Docker verwendet, um eine fehlerfreie Konfiguration der Container-Runtime zu garantieren:
+
+\begin{lstlisting}[language=bash]
+	curl -fsSL https://get.docker.com -o get-docker.sh
+	sh get-docker.sh
+\end{lstlisting}
+\newpage
+Zur effizienten Verwaltung der Docker-Ressourcen wird abschließend \textbf{Portainer CE} (Community Edition) als Container-Instanz installiert \cite{portainer_install}. Hierfür wird zunächst ein persistentes Volume für die Konfigurationsdaten erstellt, bevor der eigentliche Portainer-Container mit Zugriff auf den Docker-Socket des LXC-Hosts gestartet wird:
+
+\begin{lstlisting}[language=bash]
+	# Erstellen des Daten-Volumes
+	docker volume create portainer_data
+	
+	# Starten des Portainer-Containers (STS-Version)
+	docker run -d -p 8000:8000 -p 9443:9443 --name portainer \
+	--restart=always \
+	-v /var/run/docker.sock:/var/run/docker.sock \
+	-v portainer_data:/data \
+	portainer/portainer-ce:sts
+\end{lstlisting}
+\bigskip
+Portainer bietet eine intuitive Weboberfläche zur Steuerung von Containern, Images und Volumes. Den Abschluss der Installation bildet die Ersteinrichtung über das Webinterface, bei der das Passwort für den administrativen Benutzer gesetzt wird. Damit ist die verschachtelte Virtualisierungsumgebung vollständig einsatzbereit und für das Deployment spezifischer Microservices vorbereitet. (siehe Abbildung \ref{fig:portainer})
+
+\subparagraph{Erstellung des LXC-Snapshots für das Dashboard-Recovery}
+Zusätzlich zur Sicherung der gesamten Partition mittels Partclone wurde eine Snapshot-basierte Wiederherstellungsmöglichkeit auf Container-Ebene implementiert. Das PHP-Skript des Infrastructure-Hubs (Registerkarte „Recovery“) greift auf die LXC-API zu, um den Container \texttt{docker-sandbox} bei Bedarf isoliert zurückzusetzen.\\
+
+Damit diese Funktion operabel ist, muss ein Snapshot mit der exakten Bezeichnung \texttt{clean-state} vorliegen. Dieser wird nach Abschluss aller Konfigurationen innerhalb des Containers über das Host-System erstellt:
+
+\begin{lstlisting}[language=bash]
+	# Erstellen des referenzierten Snapshots fuer die Web-UI
+	lxc snapshot docker-sandbox clean-state
+\end{lstlisting}
+\bigskip
+Durch diese Redundanz kann der Nutzer im Fehlerfall wählen: Entweder wird über den GRUB-Boot-Eintrag das gesamte System (\texttt{sda3}) überschrieben, oder es wird lediglich der LXC-Container über das Dashboard auf den Zustand des \texttt{clean-state}-Snapshots zurückgesetzt. Letzteres ermöglicht eine Wiederherstellung im laufenden Betrieb ohne Neustart des Host-Systems.
+
+\paragraph{Healer-Skript und Automatisierung via Cron-Jobs}
+
+Um die langfristige Verfügbarkeit der Dienste sicherzustellen und auf unvorhergesehene Instabilitäten der Docker-Container oder des LXC-Systems reagieren zu können, wurde ein Überwachungs- und Reparaturmechanismus implementiert. Dieser agiert als "`Self-Healing"'-Komponente innerhalb der Sandbox.
+
+\subparagraph{Implementierung des Healer-Skripts}
+Im Verzeichnis \texttt{/usr/local/bin/} wurde ein spezifisches Wartungsskript mit dem Namen \texttt{nginx-autohealer} hinterlegt. Bei der Benennung wurde bewusst auf eine Dateiendung (wie \texttt{.sh}) verzichtet. Dieser gestalterische Kniff dient dazu, das Skript nahtlos in die Hierarchie der Standard-Systembefehle zu integrieren und die Handhabung innerhalb der Shell zu vereinfachen.\\
+
+Das Skript (Quelltext siehe Anhang \ref{sda3:healer}) übernimmt automatisierte Prüfroutinen, wie den Neustart hängender Container oder die Bereinigung von verwaisten Ressourcen. Um die automatisierte Ausführung durch das System zu ermöglichen, wurde die Datei mit den notwendigen Rechten versehen:
+
+\begin{lstlisting}[language=bash]
+	# Vergabe der Ausfuehrungsrechte
+	sudo chmod +x /usr/local/bin/nginx-autohealer
+\end{lstlisting}
+
+\subparagraph{Zeitsteuerung durch Cron-Jobs}
+Die Überwachung durch den Healer sowie die allgemeine Systemwartung erfolgen automatisiert in festen Zeitintervallen. Hierzu wurden für den Root-Benutzer spezifische Cron-Jobs definiert, die über \texttt{sudo crontab -e} konfiguriert wurden (siehe Anlage \ref{sda3:cron}).\\
+
+Ein wesentlicher Bestandteil dieser Aufgabenplanung ist die Implementierung eines kontrollierten System-Shutdowns. Wie bereits in der Detailplanung (siehe \ref{planung}) spezifiziert, stellt dieser automatisierte Prozess sicher, dass das System zu definierten Zeiten geordnet heruntergefahren wird. Dabei werden laufende Prozesse sauber beendet und Dateisystem-Integritäten gewahrt, was insbesondere in einer virtualisierten Umgebung mit LXC und Docker zur Vermeidung von Datenkorruption beiträgt.\\
+
+Durch diese proaktive Fehlerbehandlung und die strukturierte Ablaufsteuerung wird verhindert, dass menschliche Fehlkonfigurationen, korrupte Dateisystempfade oder unkontrollierte Abschaltungen zu einem Ausfall der Infrastruktur führen. Damit ist die "`Sandbox"'-Umgebung nicht nur funktional, sondern auch nach den Vorgaben der Planung gegen typische Betriebsrisiken abgesichert.
 
 \paragraph{Einrichtung des Dashboards}
 
+Der abschließende Schritt der Systemkonfiguration ist die Bereitstellung eines zentralen Dashboards. Dieses dient als "`Infrastructure-Hub"' und bildet die Schnittstelle zwischen den administrativen Diensten und dem Endanwender.
+
+\subparagraph{Konfiguration des vHosts und der Applikationslogik}
+Die Einrichtung erfolgt direkt über die grafische Benutzeroberfläche (UI) von CloudPanel. Die Entscheidung, das Dashboard als regulären virtuellen Host (vHost) innerhalb von CloudPanel zu realisieren, wurde bewusst getroffen: Es ermöglicht den Nutzern, die zugrunde liegende Systemstruktur und die Funktionsweise des Control-Panels unmittelbar nachzuvollziehen. (siehe Abbildung \ref{fig:cloudpanel})\\
+
+Für das Dashboard wurde die Domain \texttt{sandbox.ma.ki} als PHP-Seite angelegt. Als Anwendungsvorlage kam das Profil "`Generic"' zum Einsatz, wobei die Standardvorgaben für den Systembenutzer (Site-User) und dessen Authentifizierung beibehalten wurden. Als Laufzeitumgebung wurde die aktuelle Version \textbf{PHP 8.5} gewählt, um von den neuesten Performance-Optimierungen und Sprachfeatures zu profitieren.\\
+
+Die inhaltliche Ausgestaltung erfolgte über den integrierten File-Manager von CloudPanel. Im Verzeichnis \texttt{htdocs/sandbox.ma.ki/} wurden die Dateien \texttt{index.php} und \texttt{style.css} implementiert. Da die entsprechenden Quelltexte in den Anlagen \ref{app:php_code} und \ref{app:css_style} lediglich ausschnittsweise dokumentiert sind, kann der vollständige und aktuelle Stand über das zugehörige GitHub-Repository (siehe Anlage \ref{github}) eingesehen werden. (siehe Abbildung \ref{fig:hub})
+
+\subparagraph{Implementierung der Reverse-Proxys}
+Ein Kernmerkmal des Dashboards ist die Aggregation verschiedener Terminal-Sitzungen über eine Weboberfläche. Hierzu wurden zwei dedizierte Reverse-Proxys innerhalb der vHost-Konfiguration eingerichtet, welche die Anfragen an die jeweiligen \texttt{ttyd}-Instanzen weiterleiten:
+
+\begin{itemize}
+	\item \textbf{Host-Terminal:} Ermöglicht den direkten Shell-Zugriff auf das zugrunde liegende Hauptsystem (siehe vHost-Konfiguration in Anlage \ref{sda3:ttyd-web}).
+	\item \textbf{Docker-Terminal:} Leitet den Zugriff in die isolierte Umgebung des LXC-Containers \texttt{docker-sandbox} weiter (siehe vHost-Konfiguration in Anlage \ref{sda3:ttyd-docker}).
+\end{itemize}
+\bigskip
+Durch diese Konfiguration wird ein nahtloser Wechsel zwischen der Verwaltung des Hosts und der Steuerung der Docker-Container ermöglicht, ohne dass eine manuelle SSH-Authentifizierung seitens des Nutzers erforderlich ist. Damit ist die Benutzeroberfläche des Infrastructure-Hubs vollständig funktionsfähig und das System für den finalen Deployment-Schritt bereit.
+
 \paragraph{Einrichtung der Boot-Option für den automatischen Factory-Reset}
 
-\paragraph{Konfiguration der OpenSense}
+Um den automatisierten Wiederherstellungsprozess ohne manuelle Interaktion einleiten zu können, muss der Bootloader GRUB gezielt erweitert werden. Die Herausforderung liegt hierbei in der korrekten Referenzierung der Partitionen und der Übergabe spezifischer Kernel-Parameter, die als Trigger für die Recovery-Logik dienen.
 
-\paragraph{Erstellung des Factory-Images}
+\subparagraph{Konfiguration des Custom-Boot-Eintrags}
+Die Implementierung erfolgt über die Datei \texttt{/etc/grub.d/40\_custom}. Um eine fehlerfreie Adressierung der Boot-Partition sicherzustellen, müssen die UUID-Werte direkt aus der aktuellen \texttt{/boot/grub.cfg} übernommen werden. Dieser Eintrag verweist explizit auf die Installation von Ubuntu Server Minimal auf der Partition \texttt{sda2}.
 
+Der entscheidende Teil der Konfiguration ist die Erweiterung der Kernel-Zeile um die Parameter \texttt{factory-reset} und \texttt{quiet}. Während \texttt{quiet} lediglich die Boot-Ausgaben unterdrückt, dient \texttt{factory-reset} als funktionaler Auslöser. Nach dem Laden des Kernels erkennt die Systemd-Service-Unit \texttt{factory-reset.service} diesen Parameter in der Kernel-Commandline (\texttt{/proc/cmdline}). Dies initiiert die Ausführung des Skripts \texttt{factory-restore.sh} (siehe Anlage \ref{sda2:shell}), welches die Rückspielung des System-Images auf \texttt{sda3} mittels \texttt{partclone} ohne weitere Benutzerbestätigung vollzieht.
+
+Die Vorgehensweise zur Bearbeitung und Aktualisierung des Bootloaders ist in Anlage \ref{sda3:grub} dokumentiert und wurde mit folgendem Befehl finalisiert:
+
+\begin{lstlisting}[language=bash]
+	# Aktualisierung der GRUB-Konfiguration nach Bearbeitung von 40_custom
+	sudo update-grub
+\end{lstlisting}
+
+Durch diese Konfiguration wird ein "`One-Touch"'-Recovery-Mechanismus geschaffen. Sobald dieser Boot-Eintrag ausgewählt wird, versetzt sich das Hauptsystem eigenständig in den definierten Werkszustand zurück.
+
+\paragraph{Netzwerkintegration und DNS-Konfiguration in OPNsense}
+
+Um eine konsistente Erreichbarkeit der Dienste innerhalb des Unternehmensnetzwerks der \textbf{Maki GmbH} (Domain: \texttt{ma.ki}) zu gewährleisten, wurde die Sandbox-Umgebung zentral in der Firewall-Lösung \textbf{OPNsense} registriert. Die Konfiguration unterscheidet dabei strikt zwischen dem internen Brücken-Netzwerk und der externen Kommunikationsebene.
+
+\subparagraph{Statische DHCP-Zuweisung und Layer-2-Mapping}
+Zur Sicherstellung einer permanenten Erreichbarkeit wurden für beide Systemkomponenten statische DHCP-Reservierungen (Static Mappings) auf Basis ihrer jeweiligen MAC-Adressen eingerichtet:
+
+\begin{itemize}
+	\item \textbf{Host-System (sandbox.ma.ki):} Die physische MAC-Adresse der Netzwerkschnittstelle des Hostsystems wurde an die IP-Adresse \texttt{192.168.100.21} gebunden.
+	\item \textbf{LXC-Container (docker-sandbox.ma.ki):} Die über das \textbf{MACVLAN} generierte virtuelle MAC-Adresse des Containers wurde fest mit der IP-Adresse \texttt{192.168.100.22} verknüpft.
+\end{itemize}
+
+Diese Zuweisung ermöglicht es dem LXC-Container, wie ein eigenständiges physisches Gerät im Netzwerk aufzutreten, während das interne Netzwerk (\texttt{192.168.212.0/24}) als isolierte Brücke für die systeminterne Kommunikation dient und nicht nach außen kommuniziert wird.
+
+\subparagraph{DNS-Konfiguration und Domain-Mapping}
+Die Namensauflösung innerhalb der lokalen Domain \texttt{ma.ki} erfolgt über den DNS-Dienst der OPNsense (Unbound DNS). Hierzu wurden Host-Overrides implementiert, welche die externen IP-Adressen auf die entsprechenden Domainnamen mappen:
+
+\begin{itemize}
+	\item \textbf{sandbox.ma.ki}: Zeigt auf \texttt{192.168.100.21} (Zentraler Einstiegspunkt zum Dashboard).
+	\item \textbf{docker-sandbox.ma.ki}: Zeigt auf \texttt{192.168.100.22} (Direktzugriff auf die Container-Infrastruktur).
+	\item \textbf{*.sandbox.ma.ki} (Wildcard-Eintrag): Verweist ebenfalls auf \texttt{192.168.100.21}, um im CloudPanel erstellte Projekte automatisch lokal aufzulösen.
+\end{itemize}
+
+Durch diese Konfiguration ist die Sandbox vollständig in die Infrastruktur der Maki GmbH integriert, wobei die Netzwerktrennung eine saubere Kapselung der internen Prozesse garantiert.
+
+\paragraph{Erstellung des System-Abbilds (Clean-State)}
+
+Nachdem das Hauptsystem vollständig konfiguriert, die Netzwerkintegration abgeschlossen und alle Dienste (CloudPanel, Docker, Dashboard) erfolgreich getestet wurden, erfolgt die Erstellung des Referenz-Images. Dieses Abbild dient dem Recovery-System als Quelle für den automatisierten Werksreset.
+
+\subparagraph{Einleitung des Sicherungsvorgangs}
+Da eine konsistente Sicherung der Partition \texttt{sda3} nur im ungemounteten Zustand möglich ist, muss das System in das auf \texttt{sda2} befindliche Recovery-System gebootet werden. Um diesen Vorgang für den Administrator zu vereinfachen, wird der Befehl \texttt{grub-reboot} verwendet. Dieser setzt für den nächsten Neustart einmalig den Standard-Booteintrag auf die dritte Position (Index 2) der GRUB-Liste, welche auf das Recovery-System verweist:
+
+\begin{lstlisting}[language=bash]
+	# Einmaliges Booten in das Recovery-System (Index 2)
+	sudo grub-reboot 2
+	sudo reboot
+\end{lstlisting}
+
+\subparagraph{Image-Erstellung via Partclone}
+Nach dem Neustart befindet sich das System in der \texttt{recovery-sandbox}. Da das Hauptsystem auf \texttt{sda3} nun nicht aktiv ist, kann ein bitgenaues Abbild erstellt werden. Hierzu wird das Werkzeug \textbf{partclone} in Kombination mit \textbf{gzip} zur Kompression verwendet.\\
+
+Das Image wird direkt in das Root-Verzeichnis des Recovery-Systems geschrieben, wo das Healer-Skript es im Falle eines Resets erwartet:
+
+\begin{lstlisting}[language=bash]
+	# Sicherung der Partition sda3 in ein komprimiertes Image
+	sudo -i
+	partclone.ext4 -c -s /dev/sda3 | gzip -c > /root/clean-state.img.gz
+\end{lstlisting}
+
+\subparagraph{Abschluss und Verifikation}
+Nach Abschluss des Schreibvorgangs ist der "`Clean-State"' des Systems dauerhaft gesichert. Durch die Kompression wird der Speicherbedarf auf der 20 GB großen Recovery-Partition minimiert, während die Struktur von \texttt{sda3} vollständig erhalten bleibt. Ein anschließender Neustart führt das System ohne weitere Parameter wieder in das produktive Hauptsystem zurück:
+
+\begin{lstlisting}[language=bash]
+	sudo reboot
+\end{lstlisting}
+\bigskip
+Damit ist der vollständige Zyklus von der Installation über die Konfiguration bis hin zur Implementierung der Desaster-Recovery-Strategie abgeschlossen. Das System ist nun bereit für den Einsatz in der Laborumgebung der Maki GmbH.
+\newpage
 \subsection{Qualitätssicherung (Testfälle / Abnahme)}
+
+Um die Resilienz der Sandbox-Umgebung zu verifizieren, wurden gezielte Belastungstests durchgeführt. Diese validieren insbesondere das \texttt{nginx-autohealer}-Skript, welches als "`Closed-Loop"'-System konzipiert ist.
+
+\paragraph{Test 1 – Rekonstruktion durch die Superset-Methode}
+Dieser Test simuliert das versehentliche Löschen von Benutzerdaten, die für den Betrieb des Webservers zwingend erforderlich sind (z.\,B. Log-Verzeichnisse oder Anwendungsordner).
+
+\begin{itemize}
+	\item \textbf{Durchführung:} Löschen des gesamten Verzeichnisbaums eines aktiven Site-Users unter \texttt{/home/[user]/logs/}.
+	\item \textbf{Erwartetes Ergebnis:} NGINX verweigert beim nächsten Check den Dienst (\textit{No such file or directory}). Das Skript muss die fehlenden Pfade erkennen und mittels des hinterlegten \textbf{Superset-Arrays} (NodeJS/PHP/Varnish-Strukturen) vollautomatisch rekonstruieren.
+	\item \textbf{Beobachtung:} Der Watchdog erkennt den Fehler. In Stufe 1 der Heilung wird die komplette Struktur (inkl. versteckter Ordner wie \texttt{.nvm} und \texttt{.varnish-cache}) wiederhergestellt und die Berechtigungen via \texttt{chown} rekursiv korrigiert.
+	\item \textbf{Status:} \textit{Bestanden} – Der Webserver startet ohne manuelle Korrektur der Pfade wieder neu.
+\end{itemize}
+
+\paragraph{Test 2 – Isolation und automatische Reintegration (.broken-Logik)}
+Dieser Test prüft die Fähigkeit des Systems, fehlerhafte Konfigurationen zu isolieren und nach einer Reparatur durch den Administrator selbstständig wieder zu aktivieren.
+
+\begin{itemize}
+	\item \textbf{Durchführung:} Einbau eines Syntaxfehlers in eine vHost-Konfigurationsdatei innerhalb von \texttt{/etc/nginx/sites-enabled/}.
+	\item \textbf{Erwartetes Ergebnis:} Da eine automatische Korrektur des Inhalts unmöglich ist, muss das Skript die Datei durch Umbenennung in \texttt{.broken} isolieren, um den restlichen Webserver zu schützen. Sobald der Fehler korrigiert wurde, soll das Skript die Datei reintegrieren.
+	\item \textbf{Beobachtung:} 
+	\begin{enumerate}
+		\item Das Skript erkennt den Fehler und deaktiviert den vHost (\textit{Stufe 2: Isolation}). NGINX läuft für alle anderen Seiten weiter.
+		\item Nach der manuellen Korrektur des Fehlers in der \texttt{.broken}-Datei verschiebt das Skript beim nächsten Durchlauf (\textit{Stufe 0: Auto-Restore}) die Datei zurück und führt einen \texttt{systemctl reload} durch.
+	\end{enumerate}
+	\item \textbf{Status:} \textit{Bestanden} – Die "`Closed-Loop"'-Logik stellt den Normalzustand nach der Fehlerbehebung selbstständig wieder her.
+\end{itemize}
+
+\paragraph{Abnahme}
+Die technische Abnahme der Sandbox-Umgebung erfolgte im Rahmen der Laborvorgaben der \textbf{Maki GmbH}. 
+
+Sämtliche Anforderungen aus der Planungsphase wurden erfolgreich umgesetzt:
+\begin{itemize}
+	\item \textbf{Resilienz:} Der \texttt{nginx-autohealer} schützt die Web-Infrastruktur effektiv vor Totalausfällen durch Einzelkonfigurationsfehler.
+	\item \textbf{Automatisierung:} Der "`One-Touch"'-Factory-Reset über GRUB ermöglicht eine schnelle Wiederherstellung der gesamten Umgebung.
+	\item \textbf{Infrastruktur:} Die Netzwerkintegration in die Domain \texttt{ma.ki} via OPNsense ist vollständig dokumentiert und funktionsfähig.
+\end{itemize}
+
+Das System wird hiermit für den Schulungsbetrieb freigegeben.
 
 \newpage
 \section{Projektabschluss}
-\bigskip
-\subsection{Soll - Ist - Vergleich}
 
-\subsection{Fazit / Zusammenfassung}
+\subsection{Soll-Ist-Vergleich}
 
+Der Abgleich zwischen der ursprünglichen Zielsetzung und dem realisierten Projektstand verdeutlicht den Erfolg der gewählten Strategie:
+
+\begin{itemize}
+	\item \textbf{Fehlertoleranz:} Der kritische Zielkonflikt des Ist-Zustands – weitreichende Nutzerrechte versus Systemstabilität – wurde durch den \texttt{nginx-autohealer} gelöst. Während im Ist-Zustand ein einziger Syntax-Fehler alle Projekte blockierte, sorgt das neue System für eine automatische Isolation fehlerhafter Konfigurationen, ohne den Gesamtbetrieb zu gefährden.
+	\item \textbf{Ressourceneffizienz:} Die Anforderung, ein komplexes Hosting-Szenario auf Hardware mit lediglich 8 GB RAM abzubilden, wurde durch den Einsatz von LXC-Containern und Docker anstelle von vollvirtualisierten VMs erfolgreich umgesetzt.
+	\item \textbf{Wiederherstellbarkeit:} Der hohe administrative Aufwand für manuelle Debugging-Sitzungen wurde durch den "`One-Touch"'-Factory-Reset ersetzt. Das System kann nun ohne tiefgehende Linux-Kenntnisse innerhalb weniger Minuten in einen sauberen Zustand versetzt werden.
+	\item \textbf{Lerneffekt:} Durch die Bereitstellung eines Web-Terminals (ttyd) und den vollen Zugriff innerhalb der Sandbox bleibt der didaktische Wert erhalten, während das "`Trampolin-Prinzip"' den harten Aufprall bei Fehlern verhindert.
+\end{itemize}
+
+\subsection{Zusammenfassung, Fazit und Ausblick}
+
+\paragraph{Zusammenfassung}
+Im Rahmen dieses Projekts wurde eine resiliente Infrastruktur-Sandbox für die Maki GmbH entwickelt. Die Architektur basiert auf einem zweigeteilten System: Einem minimalen Recovery-System zur schnellen Wiederherstellung und einem hochperformanten Hauptsystem auf Basis von CloudPanel und Docker. Durch die Implementierung eines intelligenten Watchdog-Skripts und einer verschachtelten Virtualisierungsebene (LXD in Verbindung mit Docker) wurde eine Umgebung geschaffen, die sowohl flexibel als auch extrem wartungsarm ist.
+
+\paragraph{Fazit}
+Das Projekt beweist, dass moderne DevOps-Methoden wie "`Self-Healing"' und "`Automated Recovery"' auch in ressourcenbeschränkten Umgebungen erfolgreich eingesetzt werden können. Das implementierte "`Trampolin-Prinzip"' erfüllt die Erwartungen vollständig: Es bietet den Nutzern den notwendigen Freiraum für Experimente und Copy-Paste-Szenarien, fängt jedoch systemkritische Fehler automatisiert ab. Die Kombination aus CloudPanel für das Webhosting und Portainer für die Container-Verwaltung stellt eine zeitgemäße, professionelle Arbeitsumgebung dar.
+
+\paragraph{Ausblick}
+Die entwickelte Architektur hat das Potenzial, über den rein schulischen Kontext hinauszuwachsen. Die gewählte Kombination aus CloudPanel und Docker bietet eine so hohe Effizienz und Stabilität, dass sie langfristig die Architektur des kommerziellen Hosting-Angebots der Maki GmbH in der Produktivumgebung ergänzen oder sogar vollständig ersetzen könnte. In künftigen Iterationen könnte zudem über eine automatisierte Synchronisation der Image-Stände zwischen mehreren Sandbox-Instanzen nachgedacht werden, um das System horizontal zu skalieren.
 \newpage
 
 %\listoffigures			%erstellt ein Abbildungsverzeichnis
@@ -419,7 +638,7 @@ Erst mit der Erstellung dieses Admin-Users ist die Konfiguration der "`Sandbox"'
 	\item[] \textit{\footnotesize \hspace{0.3cm} Vollständige Auflistung aller verwendeten Online-Ressourcen und Dokumentationen.}
 \end{description}
 
-\subsection*{Online-Repository und Versionsverwaltung}
+\subsection*{Online-Repository und Versionsverwaltung} \label{github}
 Der vollständige Quellcode, inklusive der Revisionshistorie und der verwendeten Dockerfiles, ist unter folgendem Link öffentlich zugänglich:
 
 \begin{center}
@@ -525,10 +744,36 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 	\centering
 	\caption{UEFI - Einstellung}
 	\label{fig:uefi}
-	\includegraphics[width=0.9\linewidth]{include/UEFI}
+	\includegraphics[width=0.9\linewidth]{include/UEFI.png}
 \end{figure}
 
+\begin{figure}[H]
+	\centering
+	\caption{LXD - Login}
+	\label{fig:lxd}
+	\includegraphics[width=0.9\linewidth]{include/LXD-Login.png}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+	\caption{Infrastructure - Hub}
+	\label{fig:hub}
+	\includegraphics[width=0.9\linewidth]{include/hub.png}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Cloudpanel | Sites }
+	\label{fig:cloudpanel}
+	\includegraphics[width=0.9\linewidth]{include/cloudpanel.png}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Portainer | local}
+	\label{fig:portainer}
+	\includegraphics[width=0.9\linewidth]{include/portainer.png}
+\end{figure}
 \newpage
 \section{Anlagen - Quelltexte}
 \label{sec:quellcode}
@@ -545,15 +790,15 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 \lstinputlisting{include/cronjob.txt}
 \bigskip
 \newpage
-\subsection{Auto-Healer-Script (nginx-autohealer.sh)} \label{sda3:healer}
+\subsection{Auto-Healer-Script (nginx-autohealer)} \label{sda3:healer}
 \lstinputlisting[language=bash]{include/nginx-autohealer.sh}
 \bigskip
 \newpage
-\subsection{Service-Script für den Factory-Reset (sda2-factory-reset.service)} \label{sda2:service}
+\subsection{Service-Script für den Factory-Reset (factory-reset.service)} \label{sda2:service}
 \lstinputlisting{include/sda2-factory-reset.service}
 \bigskip
 
-\subsection{Shell-Script für den Factory-Reset} \label{sda2:shell}
+\subsection{Shell-Script für den Factory-Reset (factory-restore.sh)} \label{sda2:shell}
 \lstinputlisting[language=bash]{include/sda2-factory-restore.sh}
 \bigskip
 
@@ -561,22 +806,27 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 \lstinputlisting[language=XML]{include/default-profil.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
 \bigskip
 
-\subsection{Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0).yaml)} \label{networks-yaml}
+\subsection{Konfigurationsdatei der Netzwerkschnittstelle MACVLAN (networks-macvlan0.yaml)} \label{macvlan-yaml}
+\lstinputlisting[language=XML]{include/networks-macvlan0.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
+\bigskip
+
+\subsection{Konfigurationsdatei der Netzwerkbrücke (networks-lxdbr0.yaml)} \label{netbr-yaml}
 \lstinputlisting[language=XML]{include/networks-lxdbr0.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
 \bigskip
+
 \subsection{Konfigurationsdatei des Docker-Containers (docker-sandbox.yaml)} \label{docker-yaml}
 \lstinputlisting[language=XML]{include/docker-sandbox.yaml} % YAML wird oft als XML/Ruby erkannt, oder 'bash' nutzen
 \bigskip
-
+\newpage
 \subsection{Konfiguration von ttyd des LXC-Containers} \label{sda3:ttyd-docker}
 \lstinputlisting[language=bash]{include/ttyd-docker.txt}
 \bigskip
-\newpage
+
 \subsection{Ausschnitt der PHP-Datei des Dashboards (index.php)} \label{app:php_code}
 \lstinputlisting[language=PHP]{include/index_a.php}
 \bigskip
 
-\subsection{Ausschnitt der Design-Anpassungen (CSS)} \label{app:css_style}
+\subsection{Ausschnitt der Design-Anpassungen (style.css)} \label{app:css_style}
 \lstinputlisting[language=HTML]{include/style_a.css}
 \bigskip
 
@@ -599,7 +849,8 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 		Web-Server (Hub)   & \texttt{192.168.100.21} & 443   & \texttt{https://sandbox.ma.ki/} \\
 		CloudPanel UI      & \texttt{192.168.100.21} & 8443  & \texttt{https://sandbox.ma.ki:8443/} \\
 		LXD Dashboard      & \texttt{192.168.100.21} & 9443  & \texttt{https://sandbox.ma.ki:9443/} \\
-		SSH-Host (Hauptsystem)          & \texttt{192.168.100.21} & 22    & \texttt{ssh://web@sandbox.ma.ki} \\ \hline
+		SSH-Host (Hauptsystem)          & \texttt{192.168.100.21} & 22    & \texttt{ssh://web@sandbox.ma.ki} \\
+		Portainer UI    & \texttt{192.168.100.22} & 9443   & \texttt{https://docker-sandbox.ma.ki:9443/} \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -612,7 +863,7 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 		Recovery Shell/SSH   & agent & IT123\_maki \\
 		Hauptsystem Shell/SSH      & web & IT123\_maki \\
 		Cloudpanel UI & admin         & IT123\_maki \\
-		Docker LXC Shell/SSH         & root & IT123\_maki \\
+		Docker LXC Shell         & root & IT123\_maki \\
 		Portainer UI          & admin & IT123456\_maki \\ \hline
 	\end{tabular}
 \end{table}
