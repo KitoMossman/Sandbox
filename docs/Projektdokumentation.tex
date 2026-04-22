@@ -465,7 +465,7 @@ Ein Kernmerkmal des Dashboards ist die Aggregation verschiedener Terminal-Sitzun
 
 \begin{itemize}
 	\item \textbf{Host-Terminal:} Ermöglicht den direkten Shell-Zugriff auf das zugrunde liegende Hauptsystem (siehe vHost-Konfiguration in Anlage \ref{sda3:ttyd-web}).
-	\item \textbf{Docker-Terminal:} Leitet den Zugriff in die isolierte Umgebung des LXC-Containers \texttt{docker-sandbox} weiter (siehe vHost-Konfiguration in Anlage \ref{sda3:ttyd-docker}).
+	\item \textbf{Docker-Terminal:} Leitet den Zugriff in die isolierte Umgebung des LXC-Containers \linebreak\texttt{docker-sandbox} weiter (siehe vHost-Konfiguration in Anlage \ref{sda3:ttyd-docker}).
 \end{itemize}
 \bigskip
 Durch diese Konfiguration wird ein nahtloser Wechsel zwischen der Verwaltung des Hosts und der Steuerung der Docker-Container ermöglicht, ohne dass eine manuelle SSH-Authentifizierung seitens des Nutzers erforderlich ist. Damit ist die Benutzeroberfläche des Infrastructure-Hubs vollständig funktionsfähig und das System für den finalen Deployment-Schritt bereit.
@@ -475,9 +475,9 @@ Durch diese Konfiguration wird ein nahtloser Wechsel zwischen der Verwaltung des
 Um den automatisierten Wiederherstellungsprozess ohne manuelle Interaktion einleiten zu können, muss der Bootloader GRUB gezielt erweitert werden. Die Herausforderung liegt hierbei in der korrekten Referenzierung der Partitionen und der Übergabe spezifischer Kernel-Parameter, die als Trigger für die Recovery-Logik dienen.
 
 \subparagraph{Konfiguration des Custom-Boot-Eintrags}
-Die Implementierung erfolgt über die Datei \texttt{/etc/grub.d/40\_custom}. Um eine fehlerfreie Adressierung der Boot-Partition sicherzustellen, müssen die UUID-Werte direkt aus der aktuellen \texttt{/boot/grub.cfg} übernommen werden. Dieser Eintrag verweist explizit auf die Installation von Ubuntu Server Minimal auf der Partition \texttt{sda2}.
+Die Implementierung erfolgt über die Datei \linebreak \texttt{/etc/grub.d/40\_custom}. Um eine fehlerfreie Adressierung der Boot-Partition sicherzustellen, müssen die UUID-Werte direkt aus der aktuellen \texttt{/boot/grub.cfg} übernommen werden. Dieser Eintrag verweist explizit auf die Installation von Ubuntu Server Minimal auf der Partition \texttt{sda2}.\\
 
-Der entscheidende Teil der Konfiguration ist die Erweiterung der Kernel-Zeile um die Parameter \texttt{factory-reset} und \texttt{quiet}. Während \texttt{quiet} lediglich die Boot-Ausgaben unterdrückt, dient \texttt{factory-reset} als funktionaler Auslöser. Nach dem Laden des Kernels erkennt die Systemd-Service-Unit \texttt{factory-reset.service} diesen Parameter in der Kernel-Commandline (\texttt{/proc/cmdline}). Dies initiiert die Ausführung des Skripts \texttt{factory-restore.sh} (siehe Anlage \ref{sda2:shell}), welches die Rückspielung des System-Images auf \texttt{sda3} mittels \texttt{partclone} ohne weitere Benutzerbestätigung vollzieht.
+Der entscheidende Teil der Konfiguration ist die Erweiterung der Kernel-Zeile um die Parameter \linebreak\texttt{factory-reset} und \texttt{quiet}. Während \texttt{quiet} lediglich die Boot-Ausgaben unterdrückt, dient \linebreak\texttt{factory-reset} als funktionaler Auslöser. Nach dem Laden des Kernels erkennt die Systemd-Service-Unit \texttt{factory-reset.service} diesen Parameter in der Kernel-Commandline (\texttt{/proc/cmdline}). Dies initiiert die Ausführung des Skripts \texttt{factory-restore.sh} (siehe Anlage \ref{sda2:shell}), welches die Rückspielung des System-Images auf \texttt{sda3} mittels \texttt{partclone} ohne weitere Benutzerbestätigung vollzieht.
 
 Die Vorgehensweise zur Bearbeitung und Aktualisierung des Bootloaders ist in Anlage \ref{sda3:grub} dokumentiert und wurde mit folgendem Befehl finalisiert:
 
@@ -507,7 +507,7 @@ Die Namensauflösung innerhalb der lokalen Domain \texttt{ma.ki} erfolgt über d
 
 \begin{itemize}
 	\item \textbf{sandbox.ma.ki}: Zeigt auf \texttt{192.168.100.21} (Zentraler Einstiegspunkt zum Dashboard).
-	\item \textbf{docker-sandbox.ma.ki}: Zeigt auf \texttt{192.168.100.22} (Direktzugriff auf die Container-Infrastruktur).
+	\item \textbf{docker-sandbox.ma.ki}: Zeigt auf \texttt{192.168.100.22} (Direktzugriff auf die Docker-Projekte).
 	\item \textbf{*.sandbox.ma.ki} (Wildcard-Eintrag): Verweist ebenfalls auf \texttt{192.168.100.21}, um im CloudPanel erstellte Projekte automatisch lokal aufzulösen.
 \end{itemize}
 
@@ -527,7 +527,7 @@ Da eine konsistente Sicherung der Partition \texttt{sda3} nur im ungemounteten Z
 \end{lstlisting}
 
 \subparagraph{Image-Erstellung via Partclone}
-Nach dem Neustart befindet sich das System in der \texttt{recovery-sandbox}. Da das Hauptsystem auf \texttt{sda3} nun nicht aktiv ist, kann ein bitgenaues Abbild erstellt werden. Hierzu wird das Werkzeug \textbf{partclone} in Kombination mit \textbf{gzip} zur Kompression verwendet.\\
+Nach dem Neustart befindet sich das System in der \newline\texttt{recovery-sandbox}. Da das Hauptsystem auf \texttt{sda3} nun nicht aktiv ist, kann ein bitgenaues Abbild erstellt werden. Hierzu wird das Werkzeug \textbf{partclone} in Kombination mit \textbf{gzip} zur Kompression verwendet.\\
 
 Das Image wird direkt in das Root-Verzeichnis des Recovery-Systems geschrieben, wo das Healer-Skript es im Falle eines Resets erwartet:
 
@@ -554,7 +554,7 @@ Um die Resilienz der Sandbox-Umgebung zu verifizieren, wurden gezielte Belastung
 Dieser Test simuliert das versehentliche Löschen von Benutzerdaten, die für den Betrieb des Webservers zwingend erforderlich sind (z.\,B. Log-Verzeichnisse oder Anwendungsordner).
 
 \begin{itemize}
-	\item \textbf{Durchführung:} Löschen des gesamten Verzeichnisbaums eines aktiven Site-Users unter \texttt{/home/[user]/logs/}.
+	\item \textbf{Durchführung:} Löschen des gesamten Verzeichnisbaums eines aktiven Site-Users unter \newline\texttt{/home/[user]/}.
 	\item \textbf{Erwartetes Ergebnis:} NGINX verweigert beim nächsten Check den Dienst (\textit{No such file or directory}). Das Skript muss die fehlenden Pfade erkennen und mittels des hinterlegten \textbf{Superset-Arrays} (NodeJS/PHP/Varnish-Strukturen) vollautomatisch rekonstruieren.
 	\item \textbf{Beobachtung:} Der Watchdog erkennt den Fehler. In Stufe 1 der Heilung wird die komplette Struktur (inkl. versteckter Ordner wie \texttt{.nvm} und \texttt{.varnish-cache}) wiederhergestellt und die Berechtigungen via \texttt{chown} rekursiv korrigiert.
 	\item \textbf{Status:} \textit{Bestanden} – Der Webserver startet ohne manuelle Korrektur der Pfade wieder neu.

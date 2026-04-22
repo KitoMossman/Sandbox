@@ -145,19 +145,55 @@ autocite=plain
 		\item Geben Sie die gewünschte Domain (z.\,B. \texttt{projekt.sandbox.ma.ki}) und die benötigte PHP-Version an.
 	\end{enumerate}
 	
+	\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.6\linewidth]{include/kd1-1.png}
+	\end{figure}
+
+	\begin{figure}[H]
+	\centering
+	\caption{}
+	\includegraphics[width=0.6\linewidth]{include/kd1-2.png}
+\end{figure}
+	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.6\linewidth]{include/kd1-3.png}
+	\end{figure}
+	
 	\subsection{Schritt 2: Datenbank anlegen}
 	\begin{enumerate}
 		\item Navigieren Sie innerhalb der Site-Verwaltung zu \textbf{Databases}.
 		\item Erstellen Sie eine neue Datenbank. Notieren Sie sich den Datenbanknamen, den User und das generierte Passwort für Ihre \texttt{.env}- oder Konfigurationsdatei.
 	\end{enumerate}
 	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.6\linewidth]{include/kd1-4.png}
+	\end{figure}
+	
 	\subsection{Schritt 3: Deployment der Dateien}
 	Sie können Ihre Dateien entweder über den integrierten \textbf{File Manager} hochladen oder den im Hub verlinkten \textbf{Host-Terminal} nutzen. Das Zielverzeichnis lautet:
 	\texttt{/htdocs/[ihre-domain]/}
 	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.6\linewidth]{include/kd1-5.png}
+	\end{figure}
+	
 	\newpage
 	\section{Szenario B: Deployment einer Docker-App via Compose YAML}
 	Für containerisierte Microservices nutzen Sie die \textbf{Portainer UI}, die innerhalb der isolierten Sandbox-Umgebung operiert.
+	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.6\linewidth]{include/kd2-1.png}
+	\end{figure}
 	
 	\subsection{Schritt 1: Stack-Definition}
 	\begin{enumerate}
@@ -175,6 +211,12 @@ autocite=plain
 		restart: always
 	\end{lstlisting}
 	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.5\linewidth]{include/kd2-2.png}
+	\end{figure}
+	
 	\subsection{Schritt 2: Deployment und Zugriff}
 	Klicken Sie auf \textbf{Deploy the stack}. Ihre Anwendung ist anschließend über die IP der Docker-Sandbox (\texttt{192.168.100.22}) und den von Ihnen definierten Port erreichbar.
 	
@@ -187,4 +229,9 @@ autocite=plain
 		\item \textbf{Factory-Reset:} Sollte die Umgebung instabil werden, kann man im Infrastructure Hub über den Reiter "`Recovery"` einen automatisierten Werksreset auslösen. Innerhalb weniger Minuten wird der exakte Auslieferungszustand ("`Clean-State"') wiederhergestellt.
 	\end{itemize}
 	
+		\begin{figure}[H]
+		\centering
+		\caption{}
+		\includegraphics[width=0.8\linewidth]{include/kd3-1.png}
+	\end{figure}
 \end{document}
