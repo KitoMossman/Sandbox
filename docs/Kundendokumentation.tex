@@ -32,17 +32,6 @@ bibliography=totoc
 \usepackage[ngerman]{varioref} % Muss vor hyperref/cleveref geladen werden
 \usepackage[ngerman]{cleveref}
 
-% Literaturverzeichnis-Paket laden
-\usepackage[
-backend=biber,      % Empfohlener Prozessor
-style=numeric,      % Nummerierung [1], [2]
-sorting=none,       % Erscheinen in der Reihenfolge der Nennung im Text
-autocite=plain
-]{biblatex}
-
-% Die Datenbank-Datei einbinden
-\addbibresource{include/quellen.bib}
-
 % Verhindert, dass URLs über den Rand ragen
 \usepackage{xurl} 
 \hypersetup{breaklinks=true}

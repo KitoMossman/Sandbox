@@ -31,6 +31,7 @@ bibliography=totoc
 \makeatother
 \usepackage[ngerman]{varioref} % Muss vor hyperref/cleveref geladen werden
 \usepackage[ngerman]{cleveref}
+\usepackage{pdfpages}
 
 % Literaturverzeichnis-Paket laden
 \usepackage[
@@ -634,6 +635,8 @@ Die entwickelte Architektur hat das Potenzial, über den rein schulischen Kontex
 	\item[] \textit{\footnotesize \hspace{0.3cm} Enthält die Quelltexte sämtlicher Scripte und angelegten Dateien.}
 	\item \textbf{Hostnamen, IP-Adressen, Initial-Passwörter} \dotfill S. \pageref{sec:pass}
 	\item[] \textit{\footnotesize \hspace{0.3cm} Auflistung aller bei der Installation eingerichteten Passwörter, IP-Adressen und FQDNs.}
+	\item \textbf{Kundendokumentation} \dotfill S. \pageref{sec:kd}
+	\item[] \textit{\footnotesize \hspace{0.3cm} Die Anleitung für den Endbenutzer.}
 	\item \textbf{Quellenverzeichnis} \dotfill S. \pageref{sec:quellen}
 	\item[] \textit{\footnotesize \hspace{0.3cm} Vollständige Auflistung aller verwendeten Online-Ressourcen und Dokumentationen.}
 \end{description}
@@ -867,6 +870,12 @@ Dies ermöglicht eine tiefergehende Prüfung der Implementierungsschritte, die �
 		Portainer UI          & admin & IT123456\_maki \\ \hline
 	\end{tabular}
 \end{table}
+
+\newpage
+\vspace*{\fill}
+\section{Anlagen - Kundendokumentation}\label{sec:kd}
+\vspace*{\fill}
+\includepdf[pages=-, frame=true, scale=1]{Kundendokumentation.pdf}
 
 \newpage
 \DeclareFieldFormat{url}{\newline\url{#1}}
